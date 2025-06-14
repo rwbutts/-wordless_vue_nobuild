@@ -1,0 +1,509 @@
+/**************************************************
+*                   key                           *
+***************************************************/
+
+button.key-button, button.close-button {
+    --key-width: min(7vw, 30px);
+    display: inline-block;
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 0px 4px;
+    margin: 0 calc(var(--key-width) * .1);
+    min-width: var(--key-width);
+    height: calc(var(--key-width) * .8);
+    font-size: calc(var(--key-width) * .5);
+    font-weight: normal;
+    color: black;
+}
+
+/* keys diabled by default, enabled selectively below */
+button.key-button, .modal-active.modal-active.modal-active button.key-button {
+    opacity: .4;
+    pointer-events: none;
+}
+
+button.key-button:active {
+    border: 2px solid black;
+
+}
+
+/* 
+enable keys at desired times, baed on game state,
+and the position of the cursor in the edited line.
+*/
+.gamestate-playing .keyboard.enable_delete .key-delete,
+.gamestate-playing .keyboard.enable_enter .key-enter,
+.gamestate-playing .keyboard:not(.enable_enter) .alpha,
+.gamestate-won .key-reset, .gamestate-lost .key-reset {
+    opacity: 1.0;
+    pointer-events: all;
+}
+
+/* handle key color values */
+.key-button.default {
+    background-color: var(--color-default);
+}
+
+.key-button.miss {
+    background-color: var(--color-miss);
+}
+
+.key-button.elsewhere {
+    background-color: var(--color-elsewhere);
+}
+
+.key-button.correct {
+    background-color: var(--color-correct);
+}
+
+/* 
+     key down immediately makes dark, when down is removed, 
+     fade back to normal
+*/
+.key-button {
+    transition: all .2s 0s;
+}
+
+.key-button.key-down {
+    color: white;
+    background-color: #444;
+    transition: all 0s 0s;
+}
+
+/*   if expert mode, disable the key if it's a miss.
+     Duplicate .miss to increase priority of selector 
+*/
+.enable-hard-mode .key-button.miss.miss {
+    opacity: .6;
+    pointer-events: none;
+}
+
+/**************************************************
+*                   keyboard                      *
+***************************************************/
+.keyboard .kb-row {
+    display: flex;
+    justify-content: center;
+    margin: 2vh 0 0 0;
+}
+
+.keyboard {
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+}
+
+/**************************************************
+*                   guess-letter                  *
+***************************************************/
+
+.guess-letter {
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+}
+
+/* opposing sides of the wrapper content */
+.back,
+.front {
+    position: absolute;
+    backface-visibility: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+/* when reveal class added, flip the wrapper div ocer to expose colored div */
+.reveal .guess-letter {
+    transform: rotateY(180deg);
+}
+
+.guess-letter.miss .back {
+    background-color: var(--color-miss);
+}
+
+.guess-letter.correct .back {
+    background-color: var(--color-correct);
+}
+
+.guess-letter.elsewhere .back {
+    background-color: var(--color-elsewhere);
+}
+
+/**************************************************
+*                   guess-word                    *
+***************************************************/
+
+.guess-letter {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    font-size: min(7vw, 35px);
+    font-weight: normal;
+    font-family: Arial, sans-serif;
+    transition: transform .75s;
+    transform-style: preserve-3D;
+}
+
+.guess-row {
+    display: flex;
+    justify-content: center;
+}
+
+.letter-container {
+    position: relative;
+    height: min(8vw, 40px);
+    width: min(8vw, 40px);
+    margin: min(.5vw, 5px);
+    perspective: 500px;
+    box-sizing: content-box;
+    border: 3px solid #CCC;
+}
+
+.gamestate-playing .guess-row.focus>.letter-container {
+    border: 3px solid #888;
+
+}
+
+.gamestate-playing .guess-row.focus>.letter-container.focus {
+    border: 3px solid #f37474;
+    background-color: #fee;
+}
+
+.guess-row.previous .letter-container {
+    border: 3px solid #888;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-2deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(2deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(3deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-3deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-4deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-3deg);
+    }
+}
+
+
+.gamestate-won .guess-row.latest-reveal {
+    animation: shake 0.5s;
+    animation-iteration-count: 2;
+    animation-delay: 2s;
+}
+
+/* flip the columns .5s apart */
+.reveal .letter-container:nth-child(2) .guess-letter {
+    transition-delay: .5s;
+}
+
+.reveal .letter-container:nth-child(3) .guess-letter {
+    transition-delay: 1s;
+}
+
+.reveal .letter-container:nth-child(4) .guess-letter {
+    transition-delay: 1.5s;
+}
+
+.reveal .letter-container:nth-child(5) .guess-letter {
+    transition-delay: 2s;
+}
+
+.reveal .letter-container:nth-child(6) .guess-letter {
+    transition-delay: 2.5s;
+}
+
+/**************************************************
+*                   game-container                *
+***************************************************/
+
+:root {
+    --status-font-size: 12px;
+    --title-font-size: min(4vw, 25px);
+    --footer-font-size: min(3vw, 15px);
+    --color-correct: rgb(137, 233, 137);
+    --color-elsewhere: rgb(238, 222, 152);
+    --color-miss: #AAA;
+    --color-default: #FFF;
+    --color-status-err: #822;
+    --color-status: #000;
+    --color-game-background: white;
+    --color-title: rgb(23, 170, 23);
+    --color-stats-background: white;
+    --color-stats-text: #444;
+    --color-modal-game-background: white;
+    --color-viewport-color: #eee;
+}
+
+@media (min-width: 576px) {
+    :root {
+        --status-font-size: 14px;
+    }
+}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {}
+
+@media (min-width: 1400px) {}
+
+html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--color-viewport-color);
+}
+
+div {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: auto;
+    width: auto;
+}
+
+#app {
+    font-family: Arial, sans-serif;
+    color: #2c3e50;
+    background-color: var(--color-game-background);
+    border: 1px solid #aaa;
+    box-shadow: 7px 7px #ddd;
+    padding: 5px 10px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: 'manipulation';
+    /* disable iphone default tap zoom action */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    width: auto;
+    height: auto;
+    margin: 5px 0;
+}
+
+.disable-tap-zoom {
+    touch-action: none;
+    /* disable iphone default tap zoom action */
+}
+
+.game-container {
+    position: static;
+}
+
+.title {
+    font-weight: bold;
+    font-size: var(--title-font-size);
+    color: var(--color-title);
+}
+
+span.correct {
+    background-color: var(--color-correct);
+}
+
+span.elsewhere {
+    background-color: var(--color-elsewhere);
+}
+
+span.miss {
+    background-color: var(--color-miss);
+}
+
+.footer {
+    font-size: var(--footer-font-size);
+    font-weight: bold;
+    margin: auto;
+}
+
+.small-text {
+    font-weight: normal;
+    font-size: smaller;
+}
+
+.version-info {
+    color: #bbb;
+}
+
+.hard-checkbox input {
+    margin-bottom: 0px;
+    height: 2vh;
+    width: 2vh;
+}
+
+
+
+.status-area {
+    min-height: 20px;
+    margin-top: 10px;
+}
+
+.status {
+    font-size: var(--status-font-size);
+    transform: scale(0, 0);
+    display: none;
+    margin: 0;
+    height: 0;
+}
+
+.gamestate-loading .status-game-loading,
+.gamestate-playing .status-game-in-progress,
+.gamestate-won .status-game-won,
+.gamestate-lost .status-game-lost {
+    transform: scale(1, 1);
+    display: block;
+}
+
+/**************************************************
+*                   statbar                       *
+***************************************************/
+
+.box-bar div { padding: 0; }
+
+.box-bar {
+     height: 15px;
+     width: 280px; 
+     font-size: max( .7vw, 70% );
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     margin: 0 0 5px 0;
+     position: relative;
+     padding: 0;
+}
+
+.box-caption1 {
+     height: 100%;
+     flex: 0 0 50px;
+     padding-top: 2px;
+}
+.box-caption2 {
+     height: 100%;
+     flex: 0 0 35px;
+     padding-top: 2px;
+}
+
+.box {
+     height: 100%;
+     flex: 1 0 auto;
+     border: 1px dotted #aaa;
+     margin:0 -1px 0 0;
+}
+
+.box.filled {
+     border: 1px solid black;
+     background-color : rgb(137, 233, 137);
+}
+
+.bar-missed-pct .box.filled {
+     border: 1px solid black;
+     background-color : var(--color-miss);
+}
+
+/**************************************************
+*                   statbox                       *
+***************************************************/
+.stat-box.showdialog {
+    display: block;
+    visibility: visible;
+    transform: scale(1, 1);
+    transition: transform .25s linear 4s;
+}
+
+.stat-box {
+    display: block;
+    border: 2px solid #777;
+    border-radius: 15px;
+    width: auto;
+    height: auto;
+    position: absolute;
+    background-color: var(--color-stats-background);
+    color: var(--color-stats-text);
+    padding: 5px;
+    transform: scale(0, 0);
+    visibility: hidden;
+    z-index: 1;
+}
+
+.close-button {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0 5px 0;
+}
+
+.close-button button:hover {
+    cursor: pointer;
+    border-color: #444;
+}
+
+.modal-active .close-button button{
+    pointer-events: all;
+}
+
+
+h1 {
+    font-size: larger;
+    margin: 10px 0;
+}
+
+h2 {
+    font-size: large;
+    margin: 25px 0 7px 0;
+}
+
+.modal-active .app-container {
+    opacity: 0.4;
+    transition: all .4s linear 4s;
+    background-color: var(--color-modal-game-background);
+}
+
+/**************************************************
+*                   statbox                       *
+***************************************************/
