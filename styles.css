@@ -11,8 +11,8 @@
     --footer-font-size: min(3vw);
     --color-correct: rgb(137, 233, 137);
     --color-elsewhere: rgb(238, 222, 152);
-    --color-miss: #AAA;
-    --color-default: #FFF;
+    --color-miss: #aaa;
+    --color-default: #fff;
     --color-status-err: #822;
     --color-status: #000;
     --color-game-background: white;
@@ -25,22 +25,26 @@
 
 @media (min-width: 576px) {
     :root {
-    --letter-font-size: min(40px);
-    --letter-container-width: min(45px);
-    --key-width: min(30px);
-    --status-font-size: min(16px);
-    --title-font-size: min(28px);
-    --footer-font-size: min(14px);
+        --letter-font-size: min(40px);
+        --letter-container-width: min(45px);
+        --key-width: min(30px);
+        --status-font-size: min(16px);
+        --title-font-size: min(28px);
+        --footer-font-size: min(14px);
     }
 }
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+}
 
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+}
 
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+}
 
-@media (min-width: 1400px) {}
+@media (min-width: 1400px) {
+}
 
 html {
     height: 100%;
@@ -51,8 +55,8 @@ html {
 }
 
 #root {
-    width:100%;
-    display:flex;
+    width: 100%;
+    display: flex;
 }
 
 div {
@@ -76,10 +80,7 @@ body {
     border: 1px solid #aaa;
     box-shadow: 7px 7px #ddd;
     padding: 5px 10px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    touch-action: 'manipulation';
-    /* disable iphone default tap zoom action */
+    touch-action: "none";
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,8 +138,6 @@ span.miss {
     width: 2vh;
 }
 
-
-
 .status-area {
     min-height: 20px;
     margin-top: 10px;
@@ -164,28 +163,29 @@ span.miss {
 *                   key                           *
 ***************************************************/
 
-button.key-button, button.close-button {
+button.key-button,
+button.close-button {
     display: inline-block;
     border: 2px solid grey;
-    border-radius: calc(var(--key-width) * .2);
+    border-radius: calc(var(--key-width) * 0.2);
     padding: 0px 4px;
-    margin: 0 calc(var(--key-width) * .1);
+    margin: 0 calc(var(--key-width) * 0.1);
     min-width: var(--key-width);
-    height: calc(var(--key-width) * .7);
-    font-size: calc(var(--key-width) * .5);
+    height: calc(var(--key-width) * 0.7);
+    font-size: calc(var(--key-width) * 0.5);
     font-weight: 500;
     color: black;
 }
 
 /* keys diabled by default, enabled selectively below */
-button.key-button, .modal-active.modal-active.modal-active button.key-button {
-    opacity: .4;
+button.key-button,
+.modal-active.modal-active.modal-active button.key-button {
+    opacity: 0.4;
     pointer-events: none;
 }
 
 button.key-button:active {
     border: 2px solid black;
-
 }
 
 /* 
@@ -195,8 +195,9 @@ and the position of the cursor in the edited line.
 .gamestate-playing .keyboard.enable_delete .key-delete,
 .gamestate-playing .keyboard.enable_enter .key-enter,
 .gamestate-playing .keyboard:not(.enable_enter) .alpha,
-.gamestate-won .key-reset, .gamestate-lost .key-reset {
-    opacity: 1.0;
+.gamestate-won .key-reset,
+.gamestate-lost .key-reset {
+    opacity: 1;
     pointer-events: all;
 }
 
@@ -222,7 +223,7 @@ and the position of the cursor in the edited line.
      fade back to normal
 */
 .key-button {
-    transition: all .2s 0s;
+    transition: all 0.2s 0s;
 }
 
 .key-button.key-down {
@@ -235,7 +236,7 @@ and the position of the cursor in the edited line.
      Duplicate .miss to increase priority of selector 
 */
 .enable-hard-mode .key-button.miss.miss {
-    opacity: .6;
+    opacity: 0.4;
     pointer-events: none;
 }
 
@@ -262,7 +263,6 @@ and the position of the cursor in the edited line.
     position: absolute;
     height: 100%;
     width: 100%;
-
 }
 
 /* opposing sides of the wrapper content */
@@ -278,7 +278,7 @@ and the position of the cursor in the edited line.
     transform: rotateY(180deg);
 }
 
-/* when reveal class added, flip the wrapper div ocer to expose colored div */
+/* when reveal class added, flip the wrapper div over to expose colored div */
 .reveal .guess-letter {
     transform: rotateY(180deg);
 }
@@ -309,7 +309,7 @@ and the position of the cursor in the edited line.
     font-size: var(--letter-font-size);
     font-weight: normal;
     font-family: Arial, sans-serif;
-    transition: transform .75s;
+    transition: transform 0.75s;
     transform-style: preserve-3D;
 }
 
@@ -322,18 +322,17 @@ and the position of the cursor in the edited line.
     position: relative;
     height: var(--letter-container-width);
     width: var(--letter-container-width);
-    margin: min(.5vw, 5px);
+    margin: min(0.5vw, 5px);
     perspective: 500px;
     box-sizing: content-box;
-    border: 3px solid #CCC;
+    border: 3px solid #ccc;
 }
 
-.gamestate-playing .guess-row.focus>.letter-container {
+.gamestate-playing .guess-row.focus > .letter-container {
     border: 3px solid #888;
-
 }
 
-.gamestate-playing .guess-row.focus>.letter-container.focus {
+.gamestate-playing .guess-row.focus > .letter-container.focus {
     border: 3px solid #f37474;
     background-color: #fee;
 }
@@ -388,7 +387,6 @@ and the position of the cursor in the edited line.
     }
 }
 
-
 .gamestate-won .guess-row.latest-reveal {
     animation: shake 0.5s;
     animation-iteration-count: 2;
@@ -397,7 +395,7 @@ and the position of the cursor in the edited line.
 
 /* flip the columns .5s apart */
 .reveal .letter-container:nth-child(2) .guess-letter {
-    transition-delay: .5s;
+    transition-delay: 0.5s;
 }
 
 .reveal .letter-container:nth-child(3) .guess-letter {
@@ -417,49 +415,53 @@ and the position of the cursor in the edited line.
 }
 
 **************************************************
-*                   statbar                       *
-***************************************************/
-
-.box-bar div { padding: 0; }
+    *
+    statbar
+    *
+    ***************************************************/
+    .box-bar
+    div {
+    padding: 0;
+}
 
 .box-bar {
-     height: 15px;
-     width: 280px; 
-     font-size: max( .7vw, 70% );
-     display: flex;
-     justify-content: flex-start;
-     align-items: center;
-     margin: 0 0 5px 0;
-     position: relative;
-     padding: 0;
+    height: 15px;
+    width: 280px;
+    font-size: max(0.7vw, 70%);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 0 5px 0;
+    position: relative;
+    padding: 0;
 }
 
 .box-caption1 {
-     height: 100%;
-     flex: 0 0 50px;
-     padding-top: 2px;
+    height: 100%;
+    flex: 0 0 50px;
+    padding-top: 2px;
 }
 .box-caption2 {
-     height: 100%;
-     flex: 0 0 35px;
-     padding-top: 2px;
+    height: 100%;
+    flex: 0 0 35px;
+    padding-top: 2px;
 }
 
 .box {
-     height: 100%;
-     flex: 1 0 auto;
-     border: 1px dotted #aaa;
-     margin:0 -1px 0 0;
+    height: 100%;
+    flex: 1 0 auto;
+    border: 1px dotted #aaa;
+    margin: 0 -1px 0 0;
 }
 
 .box.filled {
-     border: 1px solid black;
-     background-color : rgb(137, 233, 137);
+    border: 1px solid black;
+    background-color: rgb(137, 233, 137);
 }
 
 .bar-missed-pct .box.filled {
-     border: 1px solid black;
-     background-color : var(--color-miss);
+    border: 1px solid black;
+    background-color: var(--color-miss);
 }
 
 /**************************************************
@@ -469,7 +471,7 @@ and the position of the cursor in the edited line.
     display: block;
     visibility: visible;
     transform: scale(1, 1);
-    transition: transform .25s linear 4s;
+    transition: transform 0.25s linear 4s;
 }
 
 .stat-box {
@@ -498,10 +500,9 @@ and the position of the cursor in the edited line.
     border-color: #444;
 }
 
-.modal-active .close-button button{
+.modal-active .close-button button {
     pointer-events: all;
 }
-
 
 h1 {
     font-size: larger;
@@ -515,7 +516,7 @@ h2 {
 
 .modal-active .app-container {
     opacity: 0.4;
-    transition: all .4s linear 4s;
+    transition: all 0.4s linear 4s;
     background-color: var(--color-modal-game-background);
 }
 

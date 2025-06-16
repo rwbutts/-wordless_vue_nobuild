@@ -104,46 +104,46 @@ Vue.component(
     },
     template: `
         <div id="app" class='disable-tap-zoom' :class="{ 'modal-active': statModalIsActive }">
-        <stats :isActive.sync='statModalIsActive' ref='stats' />
-        <div class='app-container'>
-            <h3 class='title'>Bill's NYTimes <a href='https://www.nytimes.com/games/wordle/index.html'
-                    target='_blank'>Wordle</a>&trade; Clone</h3>
-            <div class='game-container disable-tap-zoom'
-                :class="{ [gamePlayState]: true, 'enable-hard-mode': enableHardMode }">
-                <div class='guess-list'>
-                    <guess-word v-for="row in 6" :key="row" :wordProp="rowWord(row)" :answerProp="answer"
-                        :myRowProp="row - 1" :activeRowProp='nGuesses'>
-                    </guess-word>
-                </div>
-                <div class='status-area'>
-                    <h3 class='status status-game-loading'> Loading ...</h3>
-                    <h3 class='status status-game-in-progress'> {{ statusMessage }}</h3>
-                    <h3 class='status status-game-lost'>Sorry, the answer is {{ answer }}</h3>
-                    <h3 class='status status-game-won'>Congratulations, you got it! Please hire me!</h3>
+            <stats :isActive.sync='statModalIsActive' ref='stats' />
+            <div class='app-container'>
+                <h3 class='title'>Bill's NYTimes <a href='https://www.nytimes.com/games/wordle/index.html'
+                        target='_blank'>Wordle</a>&trade; Clone</h3>
+                <div class='game-container disable-tap-zoom'
+                    :class="{ [gamePlayState]: true, 'enable-hard-mode': enableHardMode }">
+                    <div class='guess-list'>
+                        <guess-word v-for="row in 6" :key="row" :wordProp="rowWord(row)" :answerProp="answer"
+                            :myRowProp="row - 1" :activeRowProp='nGuesses'>
+                        </guess-word>
+                    </div>
+                    <div class='status-area'>
+                        <h3 class='status status-game-loading'> Loading ...</h3>
+                        <h3 class='status status-game-in-progress'> {{ statusMessage }}</h3>
+                        <h3 class='status status-game-lost'>Sorry, the answer is {{ answer }}</h3>
+                        <h3 class='status status-game-won'>Congratulations, you got it! Please hire me!</h3>
+                    </div>
+
+                    <line-edit :editWord.sync="editWord" @validated="onValidated" @message="statusMsg" @key="statusMsg('')"
+                        @reset="triggerWordLoad" />
                 </div>
 
-                <line-edit :editWord.sync="editWord" @validated="onValidated" @message="statusMsg" @key="statusMsg('')"
-                    @reset="triggerWordLoad" />
-            </div>
-
-            <div class='footer'>
-                <label class='hard-checkbox small-text'>
-                    <input type="checkbox" v-model="enableHardMode">
-                    <b>Hard Mode:</b> when checked, grey letters cannot be reused
-                </label>
-                <br>
-                <br>
-                <span class='correct'>Green</span>: correct;
-                <span class='elsewhere'>Yellow</span>: wrong position;
-                <span class='miss'>Grey</span>: not in word
-                <br>
-                <!-- <span class='small-text'>The unknown word may be plural</span> -->
-                <span class='small-text version-info'>
-                    app_ver: {{ appVersion }}
-                    <span v-if="apiVersion !== ''">, api_ver: {{ apiVersion }} </span>
-                </span>
+                <div class='footer'>
+                    <label class='hard-checkbox small-text'>
+                        <input type="checkbox" v-model="enableHardMode">
+                        <b>Hard Mode:</b> when checked, grey letters cannot be reused
+                    </label>
+                    <br>
+                    <br>
+                    <span class='correct'>Green</span>: correct;
+                    <span class='elsewhere'>Yellow</span>: wrong position;
+                    <span class='miss'>Grey</span>: not in word
+                    <br>
+                    <!-- <span class='small-text'>The unknown word may be plural</span> -->
+                    <span class='small-text version-info'>
+                        app_ver: {{ appVersion }}
+                        <span v-if="apiVersion !== ''">, api_ver: {{ apiVersion }} </span>
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
     `,
 });
