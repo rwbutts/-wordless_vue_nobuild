@@ -20,7 +20,7 @@
     --color-stats-background: white;
     --color-stats-text: #444;
     --color-modal-game-background: white;
-    --color-viewport-color: #eee;
+    --color-viewport-color: #aaa;
 }
 
 @media (min-width: 576px) {
@@ -57,6 +57,8 @@ html {
 #root {
     width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 div {
@@ -65,23 +67,23 @@ div {
 
 body {
     margin: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
+    height: auto;
+    width: auto;
 }
 .app-container {
     width: 100%;
 }
 
-#app {
+#game-container {
     font-family: Arial, sans-serif;
     color: #2c3e50;
     background-color: var(--color-game-background);
     border: 1px solid #aaa;
-    box-shadow: 7px 7px #ddd;
+    box-shadow: 7px 7px #999;
     padding: 5px 10px;
     touch-action: "none";
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -103,6 +105,7 @@ body {
     font-weight: bold;
     font-size: var(--title-font-size);
     color: var(--color-title);
+    margin: 0px 0px 10px 0;
 }
 
 span.correct {
@@ -139,7 +142,7 @@ span.miss {
 }
 
 .status-area {
-    min-height: 20px;
+    min-height: calc(var(--status-font-size) * 1.25);
     margin-top: 10px;
 }
 
@@ -514,7 +517,7 @@ h2 {
     margin: 25px 0 7px 0;
 }
 
-.modal-active .app-container {
+.modal-active .game-container {
     opacity: 0.4;
     transition: all 0.4s linear 4s;
     background-color: var(--color-modal-game-background);
@@ -523,3 +526,7 @@ h2 {
 /**************************************************
 *                  Misc                           *
 ***************************************************/
+.debug .dbg-green { border: 1px solid green;}
+.debug .dbg-red { border: 1px solid red;}
+.debug .dbg-yellow { border: 1px solid red;}
+.debug .dbg-blue { border: 1px solid blue;}
