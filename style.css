@@ -12,10 +12,10 @@
     --color-correct: rgb(137, 233, 137);
     --color-elsewhere: rgb(238, 222, 152);
     --color-miss: #aaa;
-    --color-default: #fff;
+    --color-default: white;
     --color-status-err: #822;
     --color-status: #000;
-    --color-game-background: white;
+    --color-game-background: #f0f0f0;
     --color-title: rgb(23, 170, 23);
     --color-stats-background: white;
     --color-stats-text: #444;
@@ -25,12 +25,12 @@
 
 @media (min-width: 576px) {
     :root {
-        --letter-font-size: min(40px);
-        --letter-container-width: min(45px);
-        --key-width: min(30px);
-        --status-font-size: min(16px);
-        --title-font-size: min(28px);
-        --footer-font-size: min(14px);
+        --letter-font-size: min(30px);
+        --letter-container-width: min(35px);
+        --key-width: min(20px);
+        --status-font-size: min(12px);
+        --title-font-size: min(24px);
+        --footer-font-size: min(12px);
     }
 }
 
@@ -67,8 +67,10 @@ div {
 
 body {
     margin: 0;
-    height: auto;
+    height: 100%;
     width: auto;
+    margin: 0 10px;
+    display:flex;
 }
 .app-container {
     width: 100%;
