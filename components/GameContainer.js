@@ -115,11 +115,11 @@ Vue.component(
     template: `
         <div id="game-container" class='game-container disable-tap-zoom dbg-red' :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': enableHardMode, }">
             <stats :isActive.sync='statModalIsActive' ref='stats' />
-            <!-- <h3 class='title dbg-green'>Bill's NYTimes Wordle</a><sup><small>&trade;</small></sup> Clone</h3> -->
             <h3 class='title dbg-green'>
                 <span class='main-title'>Wordless</span>
                 <br />
-                <span class='subtitle'>Bill's Wordle</a><sup><small>&trade;</small></sup>Game</span>
+                <span class='subtitle'>Bill's Word Game in Vue</span>
+                <!-- <span class='subtitle'>Bill's Wordle</a><sup><small>&trade;</small></sup>Game</span> -->
             </h3>
             <div class="dbg-blue">
                 <div class='guess-list'>
@@ -131,21 +131,23 @@ Vue.component(
                     <h3 class='status ' :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
                 </div>
 
-                <line-edit :editWord.sync="editWord" @validated="onValidated" @message="statusMsg" @key="statusMsg('')"
-                    @reset="triggerWordLoad" />
+                <line-edit :editWord.sync="editWord" :answer="answer" @validated="onValidated" 
+                        @message="statusMsg" @key="statusMsg('')" @reset="triggerWordLoad" />
             </div>
             <div class='footer dbg-red'>
-                <label class='hard-checkbox smaller-text'>
+                <label class='hard-checkbox'>
                     <input type="checkbox" v-model="enableHardMode">
                     <b>Hard Mode:</b> when checked, grey letters cannot be reused
                 </label>
                 <br>
                 <br>
-                <span class='correct'>Green</span>: correct;
-                <span class='elsewhere'>Yellow</span>: wrong position;
-                <span class='miss'>Grey</span>: not in word
-                <br>
-                <span class='small-text version-info'>
+                <hr>
+                <div class="flex-center-spaced">
+                    <span class='correct'>Green: correct</span>
+                    <span class='elsewhere'>Yellow: wrong position</span>
+                    <span class='miss'>Grey: not in word</span>
+                </div>
+                <span class='version-info'>
                     app_ver: {{ appVersion }}
                     <span v-if="apiVersion !== ''">, api_ver: {{ apiVersion }} </span>
                 </span>

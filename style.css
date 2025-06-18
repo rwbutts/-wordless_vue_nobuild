@@ -7,10 +7,10 @@
     --letter-font-size: min(7.25vw);
     --letter-container-width: min(8vw);
     --key-width: min(7vw);
-    --status-font-size: min(3vw);
+    --status-font-size: min(12px);
     --title-font-size: min(56px);
     --subtitle-font-size: min(16px);
-    --footer-font-size: min(3vw);
+    --footer-font-size: min(10px);
     --color-correct: rgb(137, 233, 137);
     --color-elsewhere: rgb(238, 222, 152);
     --color-miss: #aaa;
@@ -38,7 +38,7 @@
         --status-font-size: min(12px);
         --title-font-size: min(56px);
         --subtitle-font-size: min(18px);
-        --footer-font-size: min(12px);
+        --footer-font-size: min(10px);
     }
 }
 
@@ -157,8 +157,11 @@ span.error {
     font-weight: bold;
     margin: auto;
 }
+ .footer hr {
+    opacity: 0.5;
+ }
 
-.small-text {
+.smaller-text {
     font-weight: normal;
     font-size: 80%;
 }
@@ -189,6 +192,14 @@ span.error {
 }
 .status.loser {
     color: var(--color-status-loser)
+}
+
+.flex-center-spaced {
+    display: flex;
+    justify-content:space-around;
+}
+.flex-center-spaced span {
+    display:block;
 }
 
 /**************************************************

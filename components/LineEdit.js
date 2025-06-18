@@ -12,6 +12,9 @@ Vue.component(
         editWord: {
             type: String,
         },
+        answer: {
+            type: String,
+        },
     },
     methods:
     {
@@ -28,8 +31,13 @@ Vue.component(
                         const resp = await WordlessApiService.checkWordAsync(this.editWord);
                         switch (resp.exists) {
                             case false:
-                                this.statusMsg(`Sorry, ${this.editWord} is not in my dictionary!`, statusMessageClass.ERROR);
-                                newEditWord = this.editWord.substring(0, L - 1);
+                                if(this.editWord === 'XYZZY') {
+                                    this.statusMsg(`Answer: ${this.answer}`, statusMessageClass.ERROR);
+                                    newEditWord = "";
+                                } else {
+                                    this.statusMsg(`Sorry, ${this.editWord} is not in my dictionary!`, statusMessageClass.ERROR);
+                                    newEditWord = "";
+                                }
                                 break;
                             case true:
                                 // Word is valid.  Process the accepted guethis.
