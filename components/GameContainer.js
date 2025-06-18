@@ -106,7 +106,7 @@ Vue.component(
         <div id="game-container" class='game-container disable-tap-zoom dbg-red' :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': enableHardMode, }">
             <stats :isActive.sync='statModalIsActive' ref='stats' />
             <!-- <h3 class='title dbg-green'>Bill's NYTimes Wordle</a><sup><small>&trade;</small></sup> Clone</h3> -->
-            <h3 class='title dbg-green'>Wordless: Bill's Wordle</a><sup><small>&trade;</small></sup> Clone</h3>
+            <h3 class='title dbg-green'><span class='caveat-font'>Wordless</span> (Bill's Wordle</a><sup><small>&trade;</small></sup>Game)</h3>
             <div class="dbg-blue">
                 <div class='guess-list'>
                     <guess-word v-for="row in 6" :key="row" :wordProp="rowWord(row)" :answerProp="answer"
