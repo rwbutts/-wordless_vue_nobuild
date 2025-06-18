@@ -52,7 +52,6 @@ Vue.component(
                     this.gamePlayState = GamePlayStates.WON;
                     this.statusMsg(WIN_MESSAGE, statusMessageClass.WIN);
                     this.onGameOver({ won: true, guesses: this.nGuesses });
-                    this
                     break;
                 case this.guesses.length >= 6:
                     this.gamePlayState = GamePlayStates.LOST;
@@ -86,7 +85,7 @@ Vue.component(
         async triggerWordLoad() {
             this.statusMsg("Loading ...");
             const response = await WordlessApiService.getWordAsync();
-            console.log("onTriggerWordLoad: got ", response);
+            //console.log("onTriggerWordLoad: got ", response);
             if (response.success) {
                 this.answer = response.word?.toUpperCase();
                 this.resetState();
