@@ -8,7 +8,8 @@
     --letter-container-width: min(8vw);
     --key-width: min(7vw);
     --status-font-size: min(3vw);
-    --title-font-size: min(5vw);
+    --title-font-size: min(56px);
+    --subtitle-font-size: min(16px);
     --footer-font-size: min(3vw);
     --color-correct: rgb(137, 233, 137);
     --color-elsewhere: rgb(238, 222, 152);
@@ -31,7 +32,8 @@
         --letter-container-width: min(35px);
         --key-width: min(25px);
         --status-font-size: min(12px);
-        --title-font-size: min(24px);
+        --title-font-size: min(56px);
+        --subtitle-font-size: min(18px);
         --footer-font-size: min(12px);
     }
 }
@@ -110,11 +112,24 @@ body {
 }
 
 .title {
+    font-family: "Caveat", cursive;
+    line-height: 90%;
+    margin: 15px 0px 15px 0;
+}
+
+.main-title {
     font-weight: 500;
     font-size: var(--title-font-size);
-    font-style: italic;
+    font-style: normal;
     color: var(--color-title);
-    margin: 0px 0px 10px 0;
+
+}
+
+.subtitle {
+    font-weight: 500;
+    font-size: var(--subtitle-font-size);
+    font-style: normal;
+    color: var(--color-title);
 }
 
 span.correct {
