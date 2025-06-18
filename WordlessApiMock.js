@@ -1,3 +1,10 @@
+/* 
+Global dependencies:
+    assert()
+    MatchCodes {} enumeration
+*/
+const WORDLESS_MOCK_API_VERSION = "0.1m";
+
 class GuessScorer {
     _guessWord;
     _scoreCodes;
@@ -6,16 +13,16 @@ class GuessScorer {
         assert(answerWord != null, "answerWord is empty");
         assert(guessWord.length == answerWord.length, "guessWord and answerWord strings have unequal lengths");
         this._guessWord = guessWord.toLowerCase();
-        this._scoreCodes = GuessScorer.GetWordScoreCodes(this._guessWord, answerWord.toLowerCase());
+        this._scoreCodes = GuessScorer.getWordScoreCodes(this._guessWord, answerWord.toLowerCase());
     }
-    static GetWordScoreCodes(guessWord, answerWord) {
+    static getWordScoreCodes(guessWord, answerWord) {
         const codes = [];
         for (let i = 0; i < guessWord.length; i++) {
-            codes.push(GuessScorer.GetLetterScoreCode(guessWord, answerWord, i));
+            codes.push(GuessScorer.getLetterScoreCode(guessWord, answerWord, i));
         }
         return codes;
     }
-    static GetLetterScoreCode(guessWord, answerWord, position) {
+    static getLetterScoreCode(guessWord, answerWord, position) {
         assert(position < guessWord.length, "index past end of string");
         const guessChar = guessWord.charAt(position);
         return guessChar == answerWord.charAt(position)
@@ -24,12 +31,12 @@ class GuessScorer {
                 ? 2 /* ScoreCode.is_elsewhere */
                 : 1 /* ScoreCode.not_present */;
     }
-    GuessScoresIdenticalAgainst(alternateAnswer) {
-        const testScore = GuessScorer.CreateGuessScorer(this._guessWord, alternateAnswer);
-        return (testScore._scoreCodes.length == this._scoreCodes.length &&
-            testScore._scoreCodes.every((sc, ix) => sc === this._scoreCodes[ix]));
+    isCompatibleAnswer(alternateAnswer) {
+        const testScore = GuessScorer.createGuessScorer(this._guessWord, alternateAnswer);
+        assert(testScore._scoreCodes.length === this._scoreCodes.length, "alternateAnswer Score and this Score vectors have different lengths");
+        return (testScore._scoreCodes.every((sc, ix) => sc === this._scoreCodes[ix]));
     }
-    static CreateGuessScorer(guess, answer) {
+    static createGuessScorer(guess, answer) {
         return new GuessScorer(guess, answer);
     }
 }
@@ -66,18 +73,64 @@ class RNG {
     }
 }
 
+class HealthCheckApiResponse {
+    healthy;
+    message;
+    api_version;
+    constructor(healthy, message, api_version, ) {
+        this.healthy = healthy;
+        this.message = message;
+        this.api_version = api_version;
+    }
+}
+
+class CheckWordApiResponse {
+    exists;
+    success;
+    message;
+    api_version;
+    constructor(exists, message, api_version, success = true, ) {
+        this.exists = exists;
+        this.message = message;
+        this.success = success;
+        this.api_version = api_version;
+    }
+}
+
+class GetWordApiResponse {
+    word;
+    success;
+    message;
+    api_version;
+    constructor(word, message, api_version, success = true, ) {
+        this.word = word;
+        this.message = message;
+        this.success = success;
+        this.api_version = api_version;
+    }
+}
+
+class GetMatchCountApiResponse {
+    count;
+    success;
+    message;
+    api_version;
+    constructor(count, message, api_version, success = true, ) {
+        this.count = count;
+        this.message = message;
+        this.success = success;
+        this.api_version = api_version;
+    }
+}
+
+
 class WordlessApi {
     async healthCheckAsync() {
-        return { healthy: true, message: "mock healthy", api_version: "0.0m" };
+        return new HealthCheckApiResponse(true, "System is healthy", WORDLESS_MOCK_API_VERSION);
     }
     async checkWordAsync(word) {
         const exists = WordList.includes(word.toLowerCase());
-        return {
-            exists: exists,
-            success: true,
-            message: exists ? "mock: found" : "mock: not found",
-            api_version: "0.0m",
-        };
+        return new CheckWordApiResponse(exists, "OK", WORDLESS_MOCK_API_VERSION);
     }
     async randomWord() {
         return this.getWordAsync(-1);
@@ -98,12 +151,7 @@ class WordlessApi {
         else {
             word = new RNG().choice(WordList);
         }
-        return {
-            word: word,
-            success: true,
-            message: "mock: OK",
-            api_version: "0.0m",
-        };
+        return new GetWordApiResponse(word, "OK", WORDLESS_MOCK_API_VERSION);
     }
     async getMatchCountAsync(answer, guessArray) {
         /*
@@ -111,21 +159,16 @@ class WordlessApi {
             real answer word.  These are eqivalent to the guess color clues seen by the player.
             */
         const actualScores = [];
-        guessArray.forEach((g) => actualScores.push(GuessScorer.CreateGuessScorer(g, answer)));
+        guessArray.forEach((g) => actualScores.push(GuessScorer.createGuessScorer(g, answer)));
         let matchCount = 0;
         for (const candidate of WordList) {
             // Count any word that yields the same colors the the real answer yielded
             // for all guesses.
-            if (actualScores.every((score) => score.GuessScoresIdenticalAgainst(candidate))) {
+            if (actualScores.every((score) => score.isCompatibleAnswer(candidate))) {
                 matchCount++;
             }
         }
-        return {
-            count: matchCount,
-            success: true,
-            message: "mock: OK",
-            api_version: "0.0m",
-        };
+        return new GetMatchCountApiResponse(matchCount, `${matchCount} matches`, WORDLESS_MOCK_API_VERSION);
     }
 }
 

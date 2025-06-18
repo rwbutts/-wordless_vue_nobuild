@@ -7,6 +7,56 @@ const CHECKWORD_URI = process.env.VUE_APP_API_URI_CHECKWORD;
 const GETMATCHCOUNT_URI = process.env.VUE_APP_API_URI_GETMATCHCOUNT;
 const HTTP_VER_HEADER = "X-wordless-api-version";
 
+class HealthCheckApiResponse {
+    healthy;
+    message;
+    api_version;
+    constructor(healthy, message, api_version, ) {
+        this.healthy = healthy;
+        this.message = message;
+        this.api_version = api_version;
+    }
+}
+
+class CheckWordApiResponse {
+    exists;
+    success;
+    message;
+    api_version;
+    constructor(exists, message, api_version, success = true, ) {
+        this.exists = exists;
+        this.message = message;
+        this.success = success;
+        this.api_version = api_version;
+    }
+}
+
+class GetWordApiResponse {
+    word;
+    success;
+    message;
+    api_version;
+    constructor(word, message, api_version, success = true, ) {
+        this.word = word;
+        this.message = message;
+        this.success = success;
+        this.api_version = api_version;
+    }
+}
+
+class GetMatchCountApiResponse {
+    count;
+    success;
+    message;
+    api_version;
+    constructor(count, message, api_version, success = true, ) {
+        this.count = count;
+        this.message = message;
+        this.success = success;
+        this.api_version = api_version;
+    }
+}
+
 class WordlessAPI {
     async getWordAsync(daysAgo = -1) {
         return getWordAsync(daysAgo);
@@ -24,29 +74,29 @@ class WordlessAPI {
 async function healthCheckAsync() {
     try {
         const json = await _fetchAndGetJson(`${API_SITE}${HEALTHCHECK_URI}`);
-        return { healthy: true, message: '', api_version: json.api_version };
+        return new HealthCheckApiResponse(true, "Health check OK", json.api_version);
     }
     catch (err) {
-        return { healthy: false, message: err.message, api_version: 'n/a' };
+        return new HealthCheckApiResponse(false, err.message, 'n/a');
     }
 }
 async function getWordAsync(daysAgo = -1) {
     try {
         const json = await _fetchAndGetJson(`${API_SITE}${GETWORD_URI}/${daysAgo}`);
-        return { word: json.word.toUpperCase(), success: true, message: '', api_version: json.api_version };
+        new GetWordApiResponse(json.word.toUpperCase(), '', json.api_version);
     }
     catch (err) {
-        return { word: undefined, success: false, message: err.message, api_version: 'n/a' };
+        new GetWordApiResponse(null, err.message, 'n/a', false);
     }
 }
 export async function checkWordAsync(Word) {
     const WordLC = Word.toLowerCase();
     try {
         const json = await _fetchAndGetJson(`${API_SITE}${CHECKWORD_URI}/${WordLC}`);
-        return { exists: json.exists, success: true, message: '', api_version: json.api_version };
+        return new CheckWordApiResponse(json.exists, json.exists ? 'Word is valid' : 'Word is not valid', json.api_version);
     }
     catch (err) {
-        return { exists: undefined, success: false, message: err.message, api_version: 'n/a' };
+        return new CheckWordApiResponse(null, err.message, 'n/a', false);
     }
 }
 export async function getMatchCountAsync(answer, guessArray) {
@@ -56,10 +106,10 @@ export async function getMatchCountAsync(answer, guessArray) {
     };
     try {
         const json = await _fetchAndGetJson(`${API_SITE}${GETMATCHCOUNT_URI}`, postData);
-        return { count: json.count, success: true, message: '', api_version: json.api_version };
+        return new GetMatchCountApiResponse(json.count, `${json.count} matches`, json.api_version);
     }
     catch (err) {
-        return { count: undefined, success: false, message: err.message, api_version: 'n/a' };
+        return new GetMatchCountApiResponse(null, err.message, 'n/a', false);
     }
 }
 async function _fetchAndGetJson(Url, PostData = null) {

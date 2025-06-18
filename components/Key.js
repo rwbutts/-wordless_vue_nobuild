@@ -55,7 +55,7 @@ Vue.component(
             }
         },
         
-        setKeyColor( color) {
+        setKeyColor(color) {
             this.color = color;
         }
     },

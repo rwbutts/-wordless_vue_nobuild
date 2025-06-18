@@ -52,6 +52,14 @@ const MatchCodes = {
     CORRECT : "correct",
 }
 
+const statusMessageClass = { 
+    DEFAULT: "",
+    ERROR: "error",
+    WIN: "winner",
+    LOSE: "loser",
+    WELCOME: "winner",
+}
+
 const KeyCodes = {
     ENTER : "ENTER",
     DELETE : "DELETE",
@@ -60,3 +68,10 @@ const KeyCodes = {
     ALL : "*",
     RESET : "RESET",
 }
+
+function assert(condition, message = '') {
+    if (!condition) {
+        throw new Error('assert() failed: ' + message);
+    }
+}
+

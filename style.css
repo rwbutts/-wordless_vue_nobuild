@@ -15,12 +15,16 @@
     --color-elsewhere: rgb(238, 222, 152);
     --color-miss: #aaa;
     --color-default: white;
-    --color-status-err: #822;
+    --color-status-error: #822;
+    --color-status-winner: rgb(16, 124, 16);
+    --color-status-loser: #822;
     --color-status: #000;
     --color-game-background: #f0f0f0;
-    --color-title: rgb(23, 170, 23);
+    --color-title: #A22;
+    --color-subtitle: #888;
     --color-stats-background: white;
     --color-stats-text: #444;
+    --color-cursor-box: #A22;
     --color-modal-game-background: white;
     --color-viewport-color: #aaa;
 }
@@ -129,7 +133,7 @@ body {
     font-weight: 500;
     font-size: var(--subtitle-font-size);
     font-style: normal;
-    color: var(--color-title);
+    color: var(--color-subtitle);
 }
 
 span.correct {
@@ -144,6 +148,10 @@ span.miss {
     background-color: var(--color-miss);
 }
 
+span.error {
+    color: var(--color-status-error);
+}
+
 .footer {
     font-size: var(--footer-font-size);
     font-weight: bold;
@@ -152,7 +160,7 @@ span.miss {
 
 .small-text {
     font-weight: normal;
-    font-size: smaller;
+    font-size: 80%;
 }
 
 .version-info {
@@ -160,30 +168,27 @@ span.miss {
 }
 
 .hard-checkbox input {
-    margin-bottom: 0px;
-    height: 2vh;
-    width: 2vh;
+    height: var(--footer-font-size);
+    width: var(--footer-font-size);
 }
 
 .status-area {
     min-height: calc(var(--status-font-size) * 1.25);
     margin-top: 10px;
+    font-size: var(--status-font-size);
 }
 
 .status {
-    font-size: var(--status-font-size);
-    transform: scale(0, 0);
-    display: none;
     margin: 0;
-    height: 0;
 }
-
-.gamestate-loading .status-game-loading,
-.gamestate-playing .status-game-in-progress,
-.gamestate-won .status-game-won,
-.gamestate-lost .status-game-lost {
-    transform: scale(1, 1);
-    display: block;
+.status.error {
+    color: var(--color-status-error)
+}
+.status.winner {
+    color: var(--color-status-winner)
+}
+.status.loser {
+    color: var(--color-status-loser)
 }
 
 /**************************************************
@@ -360,7 +365,7 @@ and the position of the cursor in the edited line.
 }
 
 .gamestate-playing .guess-row.focus > .letter-container.focus {
-    border: 3px solid #f37474;
+    border: 3px solid var(--color-cursor-box);
     background-color: #fee;
 }
 

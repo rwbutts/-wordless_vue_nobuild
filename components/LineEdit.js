@@ -28,7 +28,7 @@ Vue.component(
                         const resp = await WordlessApiService.checkWordAsync(this.editWord);
                         switch (resp.exists) {
                             case false:
-                                this.statusMsg(`Sorry, ${this.editWord} is not in my dictionary!`);
+                                this.statusMsg(`Sorry, ${this.editWord} is not in my dictionary!`, statusMessageClass.ERROR);
                                 newEditWord = this.editWord.substring(0, L - 1);
                                 break;
                             case true:
@@ -37,7 +37,7 @@ Vue.component(
                                 newEditWord = '';
                                 break;
                             case undefined:
-                                this.statusMsg(`Error validating word: ${resp.message}. Try again in a few moments.`);
+                                this.statusMsg(`Error validating word: ${resp.message}. Try again in a few moments.`, statusMessageClass.ERROR);
                                 break;
                         }
                     }
@@ -59,8 +59,8 @@ Vue.component(
             }
 
         },
-        statusMsg( msg ) {
-            this.$emit('message', msg );
+        statusMsg( msg, msgClass=statusMessageClass.DEFAULT ) {
+            this.$emit('message', msg, msgClass );
         },
     },
     template: `

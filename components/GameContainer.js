@@ -1,4 +1,9 @@
 "use strict";
+const WIN_MESSAGE="Congratulations, you got it! Please hire me!";
+const LOSE_MESSSAGE="Sorry, the answer is #ARG0#";
+const REMAINING_WORD_MESSAGE="#ARG0# remaining word(s) match the clues above";
+const LOADING_MESSAGE="Loading ...";
+const LOADED_MESSAGE="Guess the 5-letter word in 6 tries. Good luck!";
 
 Vue.component(
     'game-container', {
@@ -11,7 +16,8 @@ Vue.component(
             statModalIsActive: false,
             appVersion: APP_VERSION,
             apiVersion: '',
-            statusMessage: 'Loading ...',
+            statusMessage: LOADING_MESSAGE,
+            statusMessageClass: statusMessageClass.DEFAULT,
             enableHardMode: false,
 
         };
@@ -25,8 +31,9 @@ Vue.component(
         setTimeout(() => this.triggerWordLoad(), 2000);
     },
     methods: {
-        statusMsg(msg) {
+        statusMsg(msg, msgClass = statusMessageClass.DEFAULT) {
             this.statusMessage = msg;
+            this.statusMessageClass = msgClass;
         },
         rowWord(row) {
             if (row - 1 === this.nGuesses) {
@@ -43,11 +50,13 @@ Vue.component(
             switch (true) {
                 case e.word === this.answer:
                     this.gamePlayState = GamePlayStates.WON;
+                    this.statusMsg(WIN_MESSAGE, statusMessageClass.WIN);
                     this.onGameOver({ won: true, guesses: this.nGuesses });
                     this
                     break;
                 case this.guesses.length >= 6:
                     this.gamePlayState = GamePlayStates.LOST;
+                    this.statusMsg(LOSE_MESSSAGE.replace('#ARG0#', this.answer), statusMessageClass.LOSE);
                     this.onGameOver({ won: false, guesses: this.nGuesses });
                     break;
                 default:
@@ -62,7 +71,7 @@ Vue.component(
             }
         },
         setKeyColor(key, color) {
-            if(key === '*') {
+            if(key === KeyCodes.ALL) {
                 Object.keys(keyRefMap).forEach( k => keyRefMap[k].setKeyColor(color));
             } else{
                 keyRefMap[key].setKeyColor( color );
@@ -70,7 +79,7 @@ Vue.component(
         },
         resetState() {
             this.guesses = [];
-            this.setKeyColor('*', MatchCodes.DEFAULT);
+            this.setKeyColor(KeyCodes.ALL, MatchCodes.DEFAULT);
             this.gamePlayState = GamePlayStates.PLAYING;
         },
         // @typescript-eslint-disable-next-line no-unused-vars
@@ -82,19 +91,20 @@ Vue.component(
                 this.answer = response.word?.toUpperCase();
                 this.resetState();
                 this.apiVersion = response.api_version ?? 'n/a';
-                this.statusMsg('Guess the 5-letter word in 6 tries. Good luck!');
+                this.statusMsg(LOADED_MESSAGE, statusMessageClass.WELCOME);
             }
             else {
-                this.statusMsg(`Error loading word - ${response.message}. Refresh page to retry.`);
+                this.statusMsg(`Error: ${response.message}. Refresh page to retry.`, statusMessageClass.ERROR);
             }
         },
         async displayMatchingWordCount(answer, guesses) {
             const resp = await WordlessApiService.getMatchCountAsync(answer, guesses);
             //console.log("displayMatchingWordCount", answer, guesses, resp,);
             if (!resp.success) {
-                this.statusMsg(`Failed to calc remaining: ${resp.message}`);
+                this.statusMsg(`Error: ${resp.message}`, statusMessageClass.ERROR);
             } else {
-                this.statusMsg(`${resp.count} remaining word(s) match the clues above.`);
+                this.statusMsg(REMAINING_WORD_MESSAGE.replace('#ARG0#', resp.count));
+                console.log(REMAINING_WORD_MESSAGE.replace('#ARG0#', resp.count));
             }
         },
         onGameOver(e) {
@@ -118,17 +128,14 @@ Vue.component(
                     </guess-word>
                 </div>
                 <div class='status-area'>
-                    <h3 class='status status-game-loading'> Loading ...</h3>
-                    <h3 class='status status-game-in-progress'> {{ statusMessage }}</h3>
-                    <h3 class='status status-game-lost'>Sorry, the answer is {{ answer }}</h3>
-                    <h3 class='status status-game-won'>Congratulations, you got it! Please hire me!</h3>
+                    <h3 class='status ' :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
                 </div>
 
                 <line-edit :editWord.sync="editWord" @validated="onValidated" @message="statusMsg" @key="statusMsg('')"
                     @reset="triggerWordLoad" />
             </div>
             <div class='footer dbg-red'>
-                <label class='hard-checkbox small-text'>
+                <label class='hard-checkbox smaller-text'>
                     <input type="checkbox" v-model="enableHardMode">
                     <b>Hard Mode:</b> when checked, grey letters cannot be reused
                 </label>
