@@ -1,7 +1,8 @@
 /**************************************************
 *                   game-container                *
-***************************************************/
+**************************************************/
 
+/* Common to all devices */
 :root {
     --letter-font-size: min(7.25vw);
     --letter-container-width: min(8vw);
@@ -23,11 +24,12 @@
     --color-viewport-color: #aaa;
 }
 
+/* Overrides for desktop */
 @media (min-width: 576px) {
     :root {
         --letter-font-size: min(30px);
         --letter-container-width: min(35px);
-        --key-width: min(20px);
+        --key-width: min(25px);
         --status-font-size: min(12px);
         --title-font-size: min(24px);
         --footer-font-size: min(12px);
@@ -96,7 +98,6 @@ body {
 
 .disable-tap-zoom {
     touch-action: none;
-    /* disable iphone default tap zoom action */
 }
 
 .game-container {
@@ -166,23 +167,23 @@ span.miss {
 
 /**************************************************
 *                   key                           *
-***************************************************/
+**************************************************/
 
 button.key-button,
 button.close-button {
     display: inline-block;
     border: 2px solid grey;
     border-radius: calc(var(--key-width) * 0.2);
-    padding: 0px 4px;
+    padding: 2px calc(var(--key-width) * 0.1);
     margin: 0 calc(var(--key-width) * 0.1);
     min-width: var(--key-width);
-    height: calc(var(--key-width) * 0.7);
+    height: auto;
     font-size: calc(var(--key-width) * 0.5);
     font-weight: 500;
     color: black;
 }
 
-/* keys diabled by default, enabled selectively below */
+/* keys disabled by default, enabled selectively below */
 button.key-button,
 .modal-active.modal-active.modal-active button.key-button {
     opacity: 0.4;
@@ -194,7 +195,7 @@ button.key-button:active {
 }
 
 /* 
-enable keys at desired times, baed on game state,
+enable keys at desired times, based on game state,
 and the position of the cursor in the edited line.
 */
 .gamestate-playing .keyboard.enable_delete .key-delete,
@@ -247,7 +248,7 @@ and the position of the cursor in the edited line.
 
 /**************************************************
 *                   keyboard                      *
-***************************************************/
+**************************************************/
 .keyboard .kb-row {
     display: flex;
     justify-content: center;
@@ -261,7 +262,7 @@ and the position of the cursor in the edited line.
 
 /**************************************************
 *                   guess-letter                  *
-***************************************************/
+**************************************************/
 
 .guess-letter {
     display: inline-block;
@@ -302,7 +303,7 @@ and the position of the cursor in the edited line.
 
 /**************************************************
 *                   guess-word                    *
-***************************************************/
+**************************************************/
 
 .guess-letter {
     position: absolute;
@@ -419,11 +420,9 @@ and the position of the cursor in the edited line.
     transition-delay: 2.5s;
 }
 
-**************************************************
-    *
-    statbar
-    *
-    ***************************************************/
+/**************************************************
+*                   statbar                       *
+**************************************************/
     .box-bar
     div {
     padding: 0;
@@ -471,7 +470,7 @@ and the position of the cursor in the edited line.
 
 /**************************************************
 *                   statbox                       *
-***************************************************/
+**************************************************/
 .stat-box.showdialog {
     display: block;
     visibility: visible;
@@ -527,7 +526,7 @@ h2 {
 
 /**************************************************
 *                  Misc                           *
-***************************************************/
+**************************************************/
 .debug .dbg-green { border: 1px solid green;}
 .debug .dbg-red { border: 1px solid red;}
 .debug .dbg-yellow { border: 1px solid red;}
