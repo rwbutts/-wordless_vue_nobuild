@@ -56,7 +56,10 @@ Vue.component(
         },
         
         setKeyColor(color) {
-            this.color = color;
+            // If current color is Green, don't honor a change back to Yellow
+            if( !(this.color === MatchCodes.CORRECT && color === MatchCodes.ELSEWHERE)) {
+                this.color = color;
+            }
         }
     },
 
