@@ -73,57 +73,6 @@ class RNG {
     }
 }
 
-class HealthCheckApiResponse {
-    healthy;
-    message;
-    api_version;
-    constructor(healthy, message, api_version, ) {
-        this.healthy = healthy;
-        this.message = message;
-        this.api_version = api_version;
-    }
-}
-
-class CheckWordApiResponse {
-    exists;
-    success;
-    message;
-    api_version;
-    constructor(exists, message, api_version, success = true, ) {
-        this.exists = exists;
-        this.message = message;
-        this.success = success;
-        this.api_version = api_version;
-    }
-}
-
-class GetWordApiResponse {
-    word;
-    success;
-    message;
-    api_version;
-    constructor(word, message, api_version, success = true, ) {
-        this.word = word;
-        this.message = message;
-        this.success = success;
-        this.api_version = api_version;
-    }
-}
-
-class GetMatchCountApiResponse {
-    count;
-    success;
-    message;
-    api_version;
-    constructor(count, message, api_version, success = true, ) {
-        this.count = count;
-        this.message = message;
-        this.success = success;
-        this.api_version = api_version;
-    }
-}
-
-
 class WordlessApi {
     async healthCheckAsync() {
         return new HealthCheckApiResponse(true, "System is healthy", WORDLESS_MOCK_API_VERSION);
