@@ -114,42 +114,44 @@ Vue.component(
     template: `
         <div id="game-container" class='game-container disable-tap-zoom dbg-red' :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': enableHardMode, }">
             <stats :isActive.sync='statModalIsActive' ref='stats' />
-            <h3 class='title dbg-green'>
-                <span class='main-title'>Wordless</span>
-                <br />
-                <span class='subtitle'>Bill's Word Game in Vue</span>
-                <!-- <span class='subtitle'>Bill's Wordle</a><sup><small>&trade;</small></sup>Game</span> -->
-            </h3>
-            <div class="dbg-blue">
-                <div class='guess-list'>
-                    <guess-word v-for="row in 6" :key="row" :wordProp="rowWord(row)" :answerProp="answer"
-                        :myRowProp="row - 1" :activeRowProp='nGuesses'>
-                    </guess-word>
-                </div>
-                <div class='status-area'>
-                    <h3 class='status ' :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
-                </div>
+            <div id="game-content">
+                <h3 class='title dbg-green'>
+                    <span class='main-title'>Wordless</span>
+                    <br />
+                    <span class='subtitle'>Bill's Word Game in Vue</span>
+                    <!-- <span class='subtitle'>Bill's Wordle</a><sup><small>&trade;</small></sup>Game</span> -->
+                </h3>
+                <div class="dbg-blue">
+                    <div class='guess-list'>
+                        <guess-word v-for="row in 6" :key="row" :wordProp="rowWord(row)" :answerProp="answer"
+                            :myRowProp="row - 1" :activeRowProp='nGuesses'>
+                        </guess-word>
+                    </div>
+                    <div class='status-area'>
+                        <h3 class='status ' :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
+                    </div>
 
-                <line-edit :editWord.sync="editWord" :answer="answer" @validated="onValidated" 
-                        @message="statusMsg" @key="statusMsg('')" @reset="triggerWordLoad" />
-            </div>
-            <div class='footer dbg-red'>
-                <label class='hard-checkbox'>
-                    <input type="checkbox" v-model="enableHardMode">
-                    <b>Hard Mode:</b> when checked, grey letters cannot be reused
-                </label>
-                <br>
-                <br>
-                <hr>
-                <div class="flex-center-spaced">
-                    <span class='correct'>Green: correct</span>
-                    <span class='elsewhere'>Yellow: wrong position</span>
-                    <span class='miss'>Grey: not in word</span>
+                    <line-edit :editWord.sync="editWord" :answer="answer" @validated="onValidated" 
+                            @message="statusMsg" @key="statusMsg('')" @reset="triggerWordLoad" />
                 </div>
-                <span class='version-info'>
-                    app_ver: {{ appVersion }}
-                    <span v-if="apiVersion !== ''">, api_ver: {{ apiVersion }} </span>
-                </span>
+                <div class='footer dbg-red'>
+                    <label class='hard-checkbox'>
+                        <input type="checkbox" v-model="enableHardMode">
+                        <b>Hard Mode:</b> when checked, grey letters cannot be reused
+                    </label>
+                    <br>
+                    <br>
+                    <hr>
+                    <div class="flex-center-spaced">
+                        <span class='correct'>Green: correct</span>
+                        <span class='elsewhere'>Yellow: wrong position</span>
+                        <span class='miss'>Grey: not in word</span>
+                    </div>
+                    <span class='version-info'>
+                        app_ver: {{ appVersion }}
+                        <span v-if="apiVersion !== ''">, api_ver: {{ apiVersion }} </span>
+                    </span>
+                </div>
             </div>
         </div>
     `,

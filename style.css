@@ -20,11 +20,11 @@
     --color-status-loser: #822;
     --color-status: #000;
     --color-game-background: #f0f0f0;
-    --color-title: #A22;
+    --color-title: #a22;
     --color-subtitle: #888;
     --color-stats-background: white;
     --color-stats-text: #444;
-    --color-cursor-box: #A22;
+    --color-cursor-box: #a22;
     --color-modal-game-background: white;
     --color-viewport-color: #aaa;
 }
@@ -78,15 +78,15 @@ body {
     height: 100%;
     width: auto;
     margin: 0 10px;
-    display:flex;
+    display: flex;
 }
 
 .caveat-font {
-  font-family: "Caveat", cursive;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
-  font-size: xx-large;
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: xx-large;
 }
 
 #game-container {
@@ -96,7 +96,7 @@ body {
     border: 1px solid #aaa;
     box-shadow: 7px 7px #999;
     padding: 5px 10px;
-    touch-action: "none";
+    touch-action: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -105,6 +105,11 @@ body {
     position: relative;
     width: 100%;
     margin: 5px 0;
+}
+
+.modal-active #game-content {
+    opacity: 0.3;
+    transition: opacity .25s linear 4s;
 }
 
 .disable-tap-zoom {
@@ -126,7 +131,6 @@ body {
     font-size: var(--title-font-size);
     font-style: normal;
     color: var(--color-title);
-
 }
 
 .subtitle {
@@ -157,9 +161,9 @@ span.error {
     font-weight: bold;
     margin: auto;
 }
- .footer hr {
+.footer hr {
     opacity: 0.5;
- }
+}
 
 .smaller-text {
     font-weight: normal;
@@ -185,21 +189,21 @@ span.error {
     margin: 0;
 }
 .status.error {
-    color: var(--color-status-error)
+    color: var(--color-status-error);
 }
 .status.winner {
-    color: var(--color-status-winner)
+    color: var(--color-status-winner);
 }
 .status.loser {
-    color: var(--color-status-loser)
+    color: var(--color-status-loser);
 }
 
 .flex-center-spaced {
     display: flex;
-    justify-content:space-around;
+    justify-content: space-around;
 }
 .flex-center-spaced span {
-    display:block;
+    display: block;
 }
 
 /**************************************************
@@ -460,8 +464,7 @@ and the position of the cursor in the edited line.
 /**************************************************
 *                   statbar                       *
 **************************************************/
-    .box-bar
-    div {
+.box-bar div {
     padding: 0;
 }
 
@@ -508,7 +511,7 @@ and the position of the cursor in the edited line.
 /**************************************************
 *                   statbox                       *
 **************************************************/
-.stat-box.showdialog {
+.stat-box.show-dialog {
     display: block;
     visibility: visible;
     transform: scale(1, 1);
@@ -541,7 +544,7 @@ and the position of the cursor in the edited line.
     border-color: #444;
 }
 
-.modal-active .close-button button {
+.stat-box.show-dialog .close-button button {
     pointer-events: all;
 }
 
@@ -564,7 +567,15 @@ h2 {
 /**************************************************
 *                  Misc                           *
 **************************************************/
-.debug .dbg-green { border: 1px solid green;}
-.debug .dbg-red { border: 1px solid red;}
-.debug .dbg-yellow { border: 1px solid red;}
-.debug .dbg-blue { border: 1px solid blue;}
+.debug .dbg-green {
+    border: 1px solid green;
+}
+.debug .dbg-red {
+    border: 1px solid red;
+}
+.debug .dbg-yellow {
+    border: 1px solid red;
+}
+.debug .dbg-blue {
+    border: 1px solid blue;
+}

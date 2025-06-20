@@ -60,7 +60,7 @@ Vue.component(
         window.addEventListener('keydown', this.handleKey);
     },
     template: `
-        <div class='stat-box' :class='{ showdialog: showDialog }'>
+        <div class='stat-box' :class="{ 'show-dialog': showDialog }">
         <h1 class='title'>Cumulative Statistics</h1>
         <h2 class='subtitle'>Words Guessed</h2>
         <statbar class='bar-guessed-pct' :percent="winPct" :caption="cumStats.gamesWon.toString()" />
