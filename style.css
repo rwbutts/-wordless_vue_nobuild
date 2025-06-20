@@ -54,18 +54,19 @@
 @media (min-width: 1400px) {
 }
 
-html {
-    height: 100%;
+html, #root {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+}
+
+html {
+    height: 100%;
     background-color: var(--color-viewport-color);
+    align-items: flex-start;
 }
 
 #root {
     width: 100%;
-    display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -74,37 +75,28 @@ div {
 }
 
 body {
-    margin: 0;
     height: 100%;
     width: auto;
     margin: 0 10px;
     display: flex;
 }
 
-.caveat-font {
-    font-family: "Caveat", cursive;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
-    font-size: xx-large;
-}
-
 #game-container {
-    font-family: Arial, sans-serif;
-    color: #2c3e50;
-    background-color: var(--color-game-background);
-    border: 1px solid #aaa;
-    box-shadow: 7px 7px #999;
-    padding: 5px 10px;
-    touch-action: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative;
+    position: static;
+    padding: 5px 10px;
     width: 100%;
     margin: 5px 0;
+    font-family: Arial, sans-serif;
+    color: #2c3e50;
+    background-color: var(--color-game-background);
+    border: 1px solid #aaa;
+    box-shadow: 7px 7px #999;
+    touch-action: none;
 }
 
 .modal-active #game-content {
@@ -116,10 +108,6 @@ body {
     touch-action: none;
 }
 
-.game-container {
-    position: static;
-}
-
 .title {
     font-family: "Caveat", cursive;
     line-height: 90%;
@@ -129,31 +117,25 @@ body {
 .main-title {
     font-weight: 500;
     font-size: var(--title-font-size);
-    font-style: normal;
     color: var(--color-title);
 }
 
 .subtitle {
     font-weight: 500;
     font-size: var(--subtitle-font-size);
-    font-style: normal;
     color: var(--color-subtitle);
 }
 
-span.correct {
+.footer .correct {
     background-color: var(--color-correct);
 }
 
-span.elsewhere {
+.footer .elsewhere {
     background-color: var(--color-elsewhere);
 }
 
-span.miss {
+.footer .miss {
     background-color: var(--color-miss);
-}
-
-span.error {
-    color: var(--color-status-error);
 }
 
 .footer {

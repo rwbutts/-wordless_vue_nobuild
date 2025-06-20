@@ -112,7 +112,7 @@ Vue.component(
 
     },
     template: `
-        <div id="game-container" class='game-container disable-tap-zoom dbg-red' :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': enableHardMode, }">
+        <div id="game-container" class='disable-tap-zoom dbg-red' :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': enableHardMode, }">
             <stats :isActive.sync='statModalIsActive' ref='stats' />
             <div id="game-content">
                 <h3 class='title dbg-green'>
@@ -143,9 +143,9 @@ Vue.component(
                     <br>
                     <hr>
                     <div class="flex-center-spaced">
-                        <span class='correct'>Green: correct</span>
-                        <span class='elsewhere'>Yellow: wrong position</span>
-                        <span class='miss'>Grey: not in word</span>
+                        <div class='correct'>Green: correct</div>
+                        <div class='elsewhere'>Yellow: wrong position</div>
+                        <div class='miss'>Grey: not in word</div>
                     </div>
                     <span class='version-info'>
                         app_ver: {{ appVersion }}
