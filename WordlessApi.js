@@ -7,7 +7,7 @@ const CHECKWORD_URI = process.env.VUE_APP_API_URI_CHECKWORD;
 const GETMATCHCOUNT_URI = process.env.VUE_APP_API_URI_GETMATCHCOUNT;
 const HTTP_VER_HEADER = "X-wordless-api-version";
 
-class WordlessAPI {
+export class WordlessAPI {
 
     async getWordAsync(daysAgo = -1) {
         try {
@@ -82,4 +82,4 @@ class WordlessAPI {
     }
 }
 
-const WordlessApiService = new WordlessAPI();
+export default WordlessApiService = new WordlessAPI();

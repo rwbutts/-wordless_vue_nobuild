@@ -81,9 +81,6 @@ class WordlessApi {
         const exists = WordList.includes(word.toLowerCase());
         return new CheckWordApiResponse(exists, "OK", WORDLESS_MOCK_API_VERSION);
     }
-    async randomWord() {
-        return this.getWordAsync(-1);
-    }
     async getWordAsync(dayIndex = -1) {
         let word;
         // for parameter >=0, return word from N days ago (0 = today)
@@ -96,8 +93,7 @@ class WordlessApi {
              */
             const nowDaysEpoch = Math.floor((Date.now() - epoch.getTime()) / (1000 * 3600 * 24));
             word = new RNG(nowDaysEpoch - dayIndex).choice(WordList);
-        }
-        else {
+        } else {
             word = new RNG().choice(WordList);
         }
         return new GetWordApiResponse(word, "OK", WORDLESS_MOCK_API_VERSION);
