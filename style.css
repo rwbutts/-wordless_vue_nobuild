@@ -42,17 +42,13 @@
     }
 }
 
-@media (min-width: 768px) {
-}
+@media (min-width: 768px) {}
 
-@media (min-width: 992px) {
-}
+@media (min-width: 992px) {}
 
-@media (min-width: 1200px) {
-}
+@media (min-width: 1200px) {}
 
-@media (min-width: 1400px) {
-}
+@media (min-width: 1400px) {}
 
 html,
 #root {
@@ -109,20 +105,20 @@ body {
     touch-action: none;
 }
 
-#game-content > .title,
-#game-content > .subtitle {
+#game-content>.title,
+#game-content>.subtitle {
     font-family: "Caveat", cursive;
     font-weight: 500;
     line-height: 90%;
 }
 
-#game-content > .title {
+#game-content>.title {
     font-size: var(--title-font-size);
     color: var(--color-title);
     margin: 10px 0 0 0;
 }
 
-#game-content > .subtitle {
+#game-content>.subtitle {
     font-size: var(--subtitle-font-size);
     color: var(--color-subtitle);
     margin: 0;
@@ -151,6 +147,7 @@ body {
 }
 
 .footer hr {
+    margin-top: 15px;
     opacity: 0.5;
 }
 
@@ -177,18 +174,17 @@ input.hard-checkbox {
 .status {
     margin: 0;
 }
+
 .status.error {
     color: var(--color-status-error);
 }
+
 .status.winner {
     color: var(--color-status-winner);
 }
+
 .status.loser {
     color: var(--color-status-loser);
-}
-
-.footer hr {
-    margin-top: 15px;
 }
 
 .color-code-guide {
@@ -365,11 +361,11 @@ and the position of the cursor in the edited line.
     border: 3px solid #ccc;
 }
 
-.gamestate-playing .guess-row.focus > .letter-container {
+.gamestate-playing .guess-row.focus>.letter-container {
     border: 3px solid #888;
 }
 
-.gamestate-playing .guess-row.focus > .letter-container.focus {
+.gamestate-playing .guess-row.focus>.letter-container.focus {
     border: 3px solid var(--color-cursor-box);
     background-color: #fee;
 }
@@ -475,6 +471,7 @@ and the position of the cursor in the edited line.
     flex: 0 0 50px;
     padding-top: 2px;
 }
+
 .box-caption2 {
     height: 100%;
     flex: 0 0 35px;
@@ -560,12 +557,15 @@ h2 {
 .debug .dbg-green {
     border: 1px solid green;
 }
+
 .debug .dbg-red {
     border: 1px solid red;
 }
+
 .debug .dbg-yellow {
     border: 1px solid red;
 }
+
 .debug .dbg-blue {
     border: 1px solid blue;
 }
