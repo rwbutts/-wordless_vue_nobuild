@@ -115,14 +115,10 @@ Vue.component(
         <div id="game-container" class='disable-tap-zoom dbg-red' :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': enableHardMode, }">
             <stats :isActive.sync='statModalIsActive' ref='stats' />
             <div id="game-content">
-                <h3 class='title dbg-green'>
-                    <span class='main-title'>Wordless</span>
-                    <br />
-                    <span class='subtitle'>Bill's Word Game in Vue</span>
-                    <!-- <span class='subtitle'>Bill's Wordle</a><sup><small>&trade;</small></sup>Game</span> -->
-                </h3>
-                <div class="dbg-blue">
-                    <div class='guess-list'>
+                <div class="title">Wordless</div>
+                <div class="subtitle">Bill's Word Game in Vue</div>
+                <div id="game-ui" class="dbg-blue">
+                    <div>
                         <guess-word v-for="row in 6" :key="row" :wordProp="rowWord(row)" :answerProp="answer"
                             :myRowProp="row - 1" :activeRowProp='nGuesses'>
                         </guess-word>
@@ -130,21 +126,18 @@ Vue.component(
                     <div class='status-area'>
                         <h3 class='status ' :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
                     </div>
-
                     <line-edit :editWord.sync="editWord" :answer="answer" @validated="onValidated" 
                             @message="statusMsg" @key="statusMsg('')" @reset="triggerWordLoad" />
                 </div>
                 <div class='footer dbg-red'>
                     <label class='hard-checkbox'>
-                        <input type="checkbox" v-model="enableHardMode">
+                        <input class='hard-checkbox' type="checkbox" v-model="enableHardMode">
                         <b>Hard Mode:</b> when checked, grey letters cannot be reused
                     </label>
-                    <br>
-                    <br>
                     <hr>
-                    <div class="flex-center-spaced">
+                    <div class="color-code-guide">
                         <div class='correct'>Green: correct</div>
-                        <div class='elsewhere'>Yellow: wrong position</div>
+                        <div class='elsewhere'>Yellow: another position</div>
                         <div class='miss'>Grey: not in word</div>
                     </div>
                     <span class='version-info'>

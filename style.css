@@ -54,7 +54,8 @@
 @media (min-width: 1400px) {
 }
 
-html, #root {
+html,
+#root {
     display: flex;
     justify-content: center;
 }
@@ -101,29 +102,34 @@ body {
 
 .modal-active #game-content {
     opacity: 0.3;
-    transition: opacity .25s linear 4s;
+    transition: opacity 0.25s linear 4s;
 }
 
 .disable-tap-zoom {
     touch-action: none;
 }
 
-.title {
+#game-content > .title,
+#game-content > .subtitle {
     font-family: "Caveat", cursive;
+    font-weight: 500;
     line-height: 90%;
-    margin: 15px 0px 15px 0;
 }
 
-.main-title {
-    font-weight: 500;
+#game-content > .title {
     font-size: var(--title-font-size);
     color: var(--color-title);
+    margin: 10px 0 0 0;
 }
 
-.subtitle {
-    font-weight: 500;
+#game-content > .subtitle {
     font-size: var(--subtitle-font-size);
     color: var(--color-subtitle);
+    margin: 0;
+}
+
+#game-ui {
+    margin-top: 15px;
 }
 
 .footer .correct {
@@ -143,6 +149,7 @@ body {
     font-weight: bold;
     margin: auto;
 }
+
 .footer hr {
     opacity: 0.5;
 }
@@ -156,7 +163,7 @@ body {
     color: #bbb;
 }
 
-.hard-checkbox input {
+input.hard-checkbox {
     height: var(--footer-font-size);
     width: var(--footer-font-size);
 }
@@ -180,12 +187,13 @@ body {
     color: var(--color-status-loser);
 }
 
-.flex-center-spaced {
+.footer hr {
+    margin-top: 15px;
+}
+
+.color-code-guide {
     display: flex;
     justify-content: space-around;
-}
-.flex-center-spaced span {
-    display: block;
 }
 
 /**************************************************

@@ -1,4 +1,4 @@
-const APP_VERSION="3.4.1-NB";
+const APP_VERSION="3.4.2-NB";
 
 const GamePlayStates = {
     LOADING_WORD : "gamestate-loading",
