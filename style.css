@@ -50,6 +50,13 @@
 
 @media (min-width: 1400px) {}
 
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/Caveat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
 html,
 #root {
     display: flex;

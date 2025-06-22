@@ -1,0 +1,16 @@
+{
+  "name": "Bill's Word Game",
+  "short_name": "Wordless",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/icon-192-bw.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
