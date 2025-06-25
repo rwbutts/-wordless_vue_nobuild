@@ -1,4 +1,4 @@
-const APP_VERSION="3.4.2-NB";
+const APP_VERSION="3.5.0-NB";
 
 const GamePlayStates = {
     LOADING_WORD : "gamestate-loading",
@@ -31,6 +31,12 @@ const KeyCodes = {
     RESET : "RESET",
 }
 
+const GameModes = {
+    EASY: 'easy',
+    HARD: 'hard',
+    'EXTRA-HARD': 'extra-hard',
+}
+
 class HealthCheckApiResponse {
     healthy;
     message;
@@ -43,12 +49,12 @@ class HealthCheckApiResponse {
 }
 
 class CheckWordApiResponse {
-    exists;
+    valid;
     success;
     message;
     api_version;
-    constructor(exists, message, api_version, success = true, ) {
-        this.exists = exists;
+    constructor(valid, message, api_version, success = true, ) {
+        this.valid = valid;
         this.message = message;
         this.success = success;
         this.api_version = api_version;

@@ -26,16 +26,21 @@ class GuessScorer {
         assert(position < guessWord.length, "index past end of string");
         const guessChar = guessWord.charAt(position);
         return guessChar == answerWord.charAt(position)
-            ? 3 /* ScoreCode.correct */
+            ? MatchCodes.CORRECT
             : answerWord.includes(guessChar)
-                ? 2 /* ScoreCode.is_elsewhere */
-                : 1 /* ScoreCode.not_present */;
+                ? MatchCodes.ELSEWHERE
+                : MatchCodes.MISS;
     }
+
     isCompatibleAnswer(alternateAnswer) {
         const testScore = GuessScorer.createGuessScorer(this._guessWord, alternateAnswer);
         assert(testScore._scoreCodes.length === this._scoreCodes.length, "alternateAnswer Score and this Score vectors have different lengths");
         return (testScore._scoreCodes.every((sc, ix) => sc === this._scoreCodes[ix]));
     }
+    computeGuessCompatibility(newGuess) {
+
+    }
+
     static createGuessScorer(guess, answer) {
         return new GuessScorer(guess, answer);
     }
@@ -77,10 +82,62 @@ class WordlessApi {
     async healthCheckAsync() {
         return new HealthCheckApiResponse(true, "System is healthy", WORDLESS_MOCK_API_VERSION);
     }
-    async checkWordAsync(word) {
-        const exists = WordList.includes(word.toLowerCase());
-        return new CheckWordApiResponse(exists, "OK", WORDLESS_MOCK_API_VERSION);
+    async checkWordAsync(newGuess, answer, guesses = []) {
+        if(!WordList.includes(newGuess.toLowerCase())) {
+            return new CheckWordApiResponse(false, `Sorry, ${newGuess} is not in my dictionary!`, WORDLESS_MOCK_API_VERSION);
+        }
+
+        let yellowViolationCount = 0;
+        let greenViolationCount = 0;
+        let greyViolationCount = 0;
+
+        guesses.forEach( (guess) => {
+            let score = GuessScorer.createGuessScorer(guess, answer);
+            score._scoreCodes.forEach( (code,col) => {
+                let newGuessChar = newGuess[col];
+                let guessChar = guess[col];
+                switch(code) {
+                    case MatchCodes.CORRECT:
+                        if(newGuessChar !== guessChar) {
+                            greenViolationCount++;
+                        }
+                        break;
+                    case MatchCodes.ELSEWHERE:
+                        if(newGuessChar === guessChar || !newGuess.includes(guessChar)) {
+                            yellowViolationCount++;
+                        }
+                        break;
+                    case MatchCodes.MISS:
+                        if(newGuess.includes(guessChar)) {
+                            greyViolationCount++;
+                        }
+                        break;
+                    default:
+                        throw Exception("Invalid MatchCode encountered");
+                }
+            });
+        });
+
+        let errMsg = "";
+        if(greenViolationCount > 0) {
+            errMsg = `${greenViolationCount} Green`;
+        }
+        if(yellowViolationCount > 0) {
+            errMsg += `${errMsg!==''?', ':''}${yellowViolationCount} Yellow`;
+        }
+        if(greyViolationCount > 0) {
+            errMsg += `${errMsg!==''?', ':''}${greyViolationCount} Grey`;
+        }
+
+        if(errMsg==='') {
+            return new CheckWordApiResponse(true, 'OK', WORDLESS_MOCK_API_VERSION);
+        }
+
+        errMsg += (greenViolationCount+yellowViolationCount+greyViolationCount)===1 ?' clue':' clues';
+
+        return new CheckWordApiResponse(false, `${newGuess} violates: ${errMsg}`, WORDLESS_MOCK_API_VERSION);
     }
+
     async getWordAsync(dayIndex = -1) {
         let word;
         // for parameter >=0, return word from N days ago (0 = today)

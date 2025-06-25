@@ -18,8 +18,7 @@ Vue.component(
             apiVersion: '',
             statusMessage: LOADING_MESSAGE,
             statusMessageClass: statusMessageClass.DEFAULT,
-            enableHardMode: false,
-
+            gameMode: GameModes.EASY,
         };
     },
     computed: {
@@ -43,6 +42,17 @@ Vue.component(
             } else {
                 return '';
             }
+        },
+        async onValidate(e) {
+            let resp;
+            if( this.gameMode === GameModes["EXTRA-HARD"])  {
+                resp = await WordlessApiService.checkWordAsync(this.editWord, this.answer, this.guesses);
+            } else {
+                resp = await WordlessApiService.checkWordAsync(this.editWord, this.answer);
+            }
+            e.message = resp.message
+            e.valid = resp.valid;
+            e.resolve();
         },
         async onValidated(e) {
             this.guesses.push(e.word);
@@ -85,7 +95,6 @@ Vue.component(
         async triggerWordLoad() {
             this.statusMsg("Loading ...");
             const response = await WordlessApiService.getWordAsync();
-            //console.log("onTriggerWordLoad: got ", response);
             if (response.success) {
                 this.answer = response.word?.toUpperCase();
                 this.resetState();
@@ -98,12 +107,10 @@ Vue.component(
         },
         async displayMatchingWordCount(answer, guesses) {
             const resp = await WordlessApiService.getMatchCountAsync(answer, guesses);
-            //console.log("displayMatchingWordCount", answer, guesses, resp,);
             if (!resp.success) {
                 this.statusMsg(`Error: ${resp.message}`, statusMessageClass.ERROR);
             } else {
                 this.statusMsg(REMAINING_WORD_MESSAGE.replace('#ARG0#', resp.count));
-                console.log(REMAINING_WORD_MESSAGE.replace('#ARG0#', resp.count));
             }
         },
         onGameOver(e) {
@@ -112,7 +119,8 @@ Vue.component(
 
     },
     template: `
-        <div id="game-container" class='disable-tap-zoom dbg-red' :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': enableHardMode, }">
+        <div id="game-container" class='disable-tap-zoom dbg-red' 
+            :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': gameMode !== 'easy', }">
             <stats :isActive.sync='statModalIsActive' ref='stats' />
             <div id="game-content">
                 <div class="title">Wordless</div>
@@ -126,14 +134,23 @@ Vue.component(
                     <div class='status-area'>
                         <h3 class='status ' :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
                     </div>
-                    <line-edit :editWord.sync="editWord" :answer="answer" @validated="onValidated" 
+                    <line-edit :editWord.sync="editWord" :answer="answer" @validate="onValidate" @validated="onValidated" 
                             @message="statusMsg" @key="statusMsg('')" @reset="triggerWordLoad" />
                 </div>
                 <div class='footer dbg-red'>
                     <label class='hard-checkbox'>
-                        <input class='hard-checkbox' type="checkbox" v-model="enableHardMode">
-                        <b>Hard Mode:</b> when checked, grey letters cannot be reused
+                        <input type="radio" value="easy" v-model="gameMode" /> Easy
                     </label>
+                    <label class='hard-checkbox'>
+                        <input type="radio" value="hard" v-model="gameMode" /> Hard
+                    </label>
+                    <label class='hard-checkbox'>
+                        <input type="radio" value="extra-hard" v-model="gameMode" /> Extra Hard
+                    </label>
+                    <br />
+                    <b>Hard Mode:</b> grey letters cannot be reused
+                    <br />
+                    <b>Extra Hard Mode:</b> guesses must respect ALL previous clues
                     <hr>
                     <div class="color-code-guide">
                         <div class='correct'>Green: correct</div>

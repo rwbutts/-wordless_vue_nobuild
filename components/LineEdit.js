@@ -28,25 +28,18 @@ Vue.component(
             switch (true) {
                 case key === KeyCodes.ENTER && L >= 5:
                     {
-                        const resp = await WordlessApiService.checkWordAsync(this.editWord);
-                        switch (resp.exists) {
-                            case false:
-                                if(this.editWord === 'XYZZY') {
-                                    this.statusMsg(`Answer: ${this.answer}`, statusMessageClass.ERROR);
-                                    newEditWord = "";
-                                } else {
-                                    this.statusMsg(`Sorry, ${this.editWord} is not in my dictionary!`, statusMessageClass.ERROR);
-                                    newEditWord = "";
-                                }
-                                break;
-                            case true:
-                                // Word is valid.  Process the accepted guethis.
+                        let validateEvt = {word: this.editWord, valid: undefined, resolve: undefined,   };
+                        let promise = new Promise( (resolve, reject) => {
+                                validateEvt.resolve = resolve;
+                                this.$emit('validate', validateEvt);
+                            })
+                        await promise;
+                        if(validateEvt.valid) {
                                 this.$emit('validated', { word: this.editWord });
                                 newEditWord = '';
-                                break;
-                            case undefined:
-                                this.statusMsg(`Error validating word: ${resp.message}. Try again in a few moments.`, statusMessageClass.ERROR);
-                                break;
+                        } else {
+                            newEditWord='';
+                            this.$emit('message', validateEvt.message, statusMessageClass.ERROR );
                         }
                     }
                     break;
