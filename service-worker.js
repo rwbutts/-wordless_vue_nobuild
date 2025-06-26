@@ -1,6 +1,7 @@
 const CACHE_NAME = 'my-pwa-cache-v1';
 const FILES_TO_CACHE = [
     "/",
+    "/index.html",
     "/types.js",
     "/components/Key.js",
     "/WordlessApiMock.js",
@@ -14,8 +15,7 @@ const FILES_TO_CACHE = [
     "/components/GameContainer.js",
     "/lib/vue.js",
     "/fonts/Caveat-Medium.ttf",
-    "/app.js"
-
+    "/app.js",
 ];
 
 self.addEventListener('install', event => {
