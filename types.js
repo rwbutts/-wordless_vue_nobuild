@@ -1,4 +1,4 @@
-const APP_VERSION="3.5.0-NB";
+const APP_VERSION="3.5.1-NB";
 
 const GamePlayStates = {
     LOADING_WORD : "gamestate-loading",
@@ -34,7 +34,7 @@ const KeyCodes = {
 const GameModes = {
     EASY: 'easy',
     HARD: 'hard',
-    'EXTRA-HARD': 'extra-hard',
+    EXTRA_HARD: 'extra-hard',
 }
 
 class HealthCheckApiResponse {

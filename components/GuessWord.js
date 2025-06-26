@@ -32,7 +32,7 @@
         reveal() {
             return this.activeRowProp > this.myRowProp;
         },
-        recentReveal() {
+        latestReveal() {
             return this.activeRowProp === this.myRowProp + 1;
         },
         haveFocus() {
@@ -40,8 +40,7 @@
         },
     },
     template: `
-    <div class='guess-row row' :class="{ focus: haveFocus, reveal: reveal, 'latest-reveal': recentReveal, }">
-
+    <div class='guess-row row' :class="{ focus: haveFocus, reveal: reveal, 'latest-reveal': latestReveal, }">
         <div v-for="col in 5" :key='col' class='letter-container'
             :class="{ focus: haveFocus && col - 1 === wordProp.length }">
             <guess-letter :letterProp="wordProp.charAt(col - 1)" :columnProp="col - 1" :answerProp="answerProp" />

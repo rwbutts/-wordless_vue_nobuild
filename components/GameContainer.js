@@ -45,7 +45,7 @@ Vue.component(
         },
         async onValidate(e) {
             let resp;
-            if( this.gameMode === GameModes["EXTRA-HARD"])  {
+            if( this.gameMode === GameModes.EXTRA_HARD)  {
                 resp = await WordlessApiService.checkWordAsync(this.editWord, this.answer, this.guesses);
             } else {
                 resp = await WordlessApiService.checkWordAsync(this.editWord, this.answer);
