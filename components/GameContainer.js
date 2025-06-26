@@ -148,9 +148,9 @@ Vue.component(
                         <input type="radio" value="extra-hard" v-model="gameMode" /> Extra Hard
                     </label>
                     <br />
-                    <b>Hard Mode:</b> grey letters cannot be reused
+                    <b>Hard:</b> grey letters cannot be reused
                     <br />
-                    <b>Extra Hard Mode:</b> guesses must respect ALL previous clues
+                    <b>Extra Hard:</b> guess must also agree with Green and Yellow clues
                     <hr>
                     <div class="color-code-guide">
                         <div class='correct'>Green: correct</div>
