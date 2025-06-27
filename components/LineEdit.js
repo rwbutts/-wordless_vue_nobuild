@@ -28,7 +28,7 @@ Vue.component(
             switch (true) {
                 case key === KeyCodes.ENTER && L >= 5:
                     {
-                        let validateEvt = {word: this.editWord, valid: undefined, resolve: undefined,   };
+                        let validateEvt = {word: this.editWord, valid: undefined, message: undefined, resolve: undefined,   };
                         let promise = new Promise( (resolve, reject) => {
                                 validateEvt.resolve = resolve;
                                 this.$emit('validate', validateEvt);

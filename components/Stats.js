@@ -11,7 +11,7 @@ Vue.component(
     },
     props: {
         isActive: {
-            type: Boolean ,
+            type: Boolean,
             required: true,
         }
     },
@@ -19,17 +19,15 @@ Vue.component(
         histogramPct(NTries) {
             return Math.floor((this.cumStats.histogramBins[NTries - 1] / this.cumStats.gamesWon) * 100 + 0.5);
         },
-
         closeDialog() {
             this.showDialog = false;
             this.$emit('update:isActive', false);
         },
-
         handleKey(e) {
             if (this.showDialog && (e.key === 'Enter' || e.key === 'Escape'))
                 this.closeDialog();
         },
-        onGameOver(evt) {
+        recordResultAndShowModal(evt) {
             let newStats;
             if (evt.won) {
                 assert(!(evt.guesses === undefined), 'newVal.numGuesses is not undefined');
@@ -56,8 +54,7 @@ Vue.component(
     },
 
     mounted() {
-        this.handleKey = this.handleKey.bind(this);
-        window.addEventListener('keydown', this.handleKey);
+        window.addEventListener('keydown', this.handleKey.bind(this));
     },
     template: `
         <div class='stat-box' :class="{ 'show-dialog': showDialog }">

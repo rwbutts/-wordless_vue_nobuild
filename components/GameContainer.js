@@ -1,6 +1,6 @@
 "use strict";
 const WIN_MESSAGE="Congratulations, you got it! Please hire me!";
-const LOSE_MESSSAGE="Sorry, the answer is #ARG0#";
+const LOSE_MESSAGE="Sorry, the answer is #ARG0#";
 const REMAINING_WORD_MESSAGE="#ARG0# remaining word(s) match the clues above";
 const LOADING_MESSAGE="Loading ...";
 const LOADED_MESSAGE="Guess the 5-letter word in 6 tries. Good luck!";
@@ -45,13 +45,18 @@ Vue.component(
         },
         async onValidate(e) {
             let resp;
-            if( this.gameMode === GameModes.EXTRA_HARD)  {
-                resp = await WordlessApiService.checkWordAsync(this.editWord, this.answer, this.guesses);
+            if(this.editWord === 'XYZZY') {
+                e.message=`The answer is ${this.answer}`;
+                e.valid = false;
             } else {
-                resp = await WordlessApiService.checkWordAsync(this.editWord, this.answer);
+                if( this.gameMode === GameModes.EXTRA_HARD)  {
+                    resp = await WordlessApiService.checkWordAsync(this.editWord, this.answer, this.guesses);
+                } else {
+                    resp = await WordlessApiService.checkWordAsync(this.editWord, this.answer);
+                }
+                e.message = resp.message
+                e.valid = resp.valid;
             }
-            e.message = resp.message
-            e.valid = resp.valid;
             e.resolve();
         },
         async onValidated(e) {
@@ -61,12 +66,12 @@ Vue.component(
                 case e.word === this.answer:
                     this.gamePlayState = GamePlayStates.WON;
                     this.statusMsg(WIN_MESSAGE, statusMessageClass.WIN);
-                    this.onGameOver({ won: true, guesses: this.nGuesses });
+                    this.gameOverShowStats({ won: true, guesses: this.nGuesses });
                     break;
                 case this.guesses.length >= 6:
                     this.gamePlayState = GamePlayStates.LOST;
-                    this.statusMsg(LOSE_MESSSAGE.replace('#ARG0#', this.answer), statusMessageClass.LOSE);
-                    this.onGameOver({ won: false, guesses: this.nGuesses });
+                    this.statusMsg(LOSE_MESSAGE.replace('#ARG0#', this.answer), statusMessageClass.LOSE);
+                    this.gameOverShowStats({ won: false, guesses: this.nGuesses });
                     break;
                 default:
                     await this.displayMatchingWordCount(this.answer, this.guesses);
@@ -82,7 +87,7 @@ Vue.component(
         setKeyColor(key, color) {
             if(key === KeyCodes.ALL) {
                 Object.keys(keyRefMap).forEach( k => keyRefMap[k].setKeyColor(color));
-            } else{
+            } else {
                 keyRefMap[key].setKeyColor( color );
             }
         },
@@ -113,8 +118,8 @@ Vue.component(
                 this.statusMsg(REMAINING_WORD_MESSAGE.replace('#ARG0#', resp.count));
             }
         },
-        onGameOver(e) {
-            this.$refs['stats'].onGameOver(e);
+        gameOverShowStats(e) {
+            this.$refs['stats'].recordResultAndShowModal(e);
         },
 
     },
