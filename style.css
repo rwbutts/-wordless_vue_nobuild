@@ -57,6 +57,10 @@
   font-style: normal;
 }
 
+/* CONFIGURE OPTION(S) */ 
+    .x-hard-mode-feature   { display: none;}    /* disable x-hard mode */
+
+/* MAIN CSS BEGINS */
 html,
 #root {
     display: flex;

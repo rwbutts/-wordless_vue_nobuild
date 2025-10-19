@@ -149,13 +149,15 @@ Vue.component(
                     <label class='hard-checkbox'>
                         <input type="radio" value="hard" v-model="gameMode" /> Hard
                     </label>
-                    <label class='hard-checkbox'>
+                    <label class='hard-checkbox x-hard-mode-feature'>
                         <input type="radio" value="extra-hard" v-model="gameMode" /> Extra Hard
                     </label>
                     <br />
                     <b>Hard:</b> grey letters cannot be reused
-                    <br />
-                    <b>Extra Hard:</b> guess must also agree with Green and Yellow clues
+                    <div class='x-hard-mode-feature'>
+                        <br />
+                        <b>Extra Hard:</b> guess must also agree with Green and Yellow clues
+                    </div>
                     <hr>
                     <div class="color-code-guide">
                         <div class='correct'>Green: correct</div>
