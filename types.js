@@ -1,4 +1,5 @@
-const APP_VERSION="3.5.3-NB";
+const APP_VERSION="3.5.4-NB";
+const APP_CHEAT_CODE = "xyzzy";    // 5-letter nonsense trigger word or "" to disable feature
 
 const GamePlayStates = {
     LOADING_WORD : "gamestate-loading",
