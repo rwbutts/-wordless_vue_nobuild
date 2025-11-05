@@ -28,15 +28,6 @@ Vue.component(
             switch (true) {
                 case key === KeyCodes.ENTER && L >= 5:
                     {
-                        // if cheat code enabled and is used, just force a message and reset the edit word
-                        if( APP_CHEAT_CODE !== "null" && this.editWord.toLowerCase() === APP_CHEAT_CODE ) 
-                        {
-                            newEditWord='';
-                            this.$emit('message', `The answer is ${this.answer.toUpperCase()}`, statusMessageClass.WELCOME );
-                            break;
-                        }
-
-                        // no cheat code, do actual validtion logic
                         let validateEvt = {word: this.editWord, valid: undefined, message: undefined, resolve: undefined,   };
                         let promise = new Promise( (resolve, reject) => {
                                 validateEvt.resolve = resolve;

@@ -45,7 +45,7 @@ Vue.component(
         },
         async onValidate(e) {
             let resp;
-            if(this.editWord === 'XYZZY') {
+            if(  APP_CHEAT_CODE && this.editWord === APP_CHEAT_CODE ) {
                 e.message=`The answer is ${this.answer}`;
                 e.valid = false;
             } else {
