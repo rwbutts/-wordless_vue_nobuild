@@ -19,6 +19,7 @@
     --color-status-winner: rgb(16, 124, 16);
     --color-status-loser: #822;
     --color-status: #000;
+    --color-game-font: #2c3e50;
     --color-game-background: #f0f0f0;
     --color-title: #a22;
     --color-subtitle: #888;
@@ -100,7 +101,7 @@ body {
     width: 100%;
     margin: 5px 0;
     font-family: Arial, sans-serif;
-    color: #2c3e50;
+    color: var(--color-game-font);
     background-color: var(--color-game-background);
     border: 1px solid #aaa;
     box-shadow: 7px 7px #999;
@@ -236,9 +237,9 @@ button.key-button:active {
 enable keys at desired times, based on game state,
 and the position of the cursor in the edited line.
 */
-.gamestate-playing .keyboard.enable_delete .key-delete,
-.gamestate-playing .keyboard.enable_enter .key-enter,
-.gamestate-playing .keyboard:not(.enable_enter) .alpha,
+.gamestate-playing .keyboard.enable-delete .key-delete,
+.gamestate-playing .keyboard.enable-enter .key-enter,
+.gamestate-playing .keyboard:not(.enable-enter) .alpha,
 .gamestate-won .key-reset,
 .gamestate-lost .key-reset {
     opacity: 1;
@@ -498,7 +499,7 @@ and the position of the cursor in the edited line.
 
 .box.filled {
     border: 1px solid black;
-    background-color: rgb(137, 233, 137);
+    background-color: var(--color-correct);
 }
 
 .bar-missed-pct .box.filled {

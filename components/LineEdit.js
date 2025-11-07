@@ -65,7 +65,7 @@ Vue.component(
         },
     },
     template: `
-        <keyboard :class="{ enable_delete: (editWord.length >= 1), enable_enter: (editWord.length >= 5), }" @key="onKey" />
+        <keyboard :class="{ 'enable-delete': (editWord.length >= 1), 'enable-enter': (editWord.length >= 5), }" @key="onKey" />
     `,
 
 });

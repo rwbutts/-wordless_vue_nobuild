@@ -113,7 +113,7 @@ class WordlessApi {
                         }
                         break;
                     default:
-                        throw Exception("Invalid MatchCode encountered");
+                        throw new Error("Invalid MatchCode encountered");
                 }
             });
         });
@@ -159,13 +159,12 @@ class WordlessApi {
         /*
             precompute the score color codes for each letter in the guess against the
             real answer word.  These are eqivalent to the guess color clues seen by the player.
-            */
+        */
         const actualScores = [];
         guessArray.forEach((g) => actualScores.push(GuessScorer.createGuessScorer(g, answer)));
         let matchCount = 0;
         for (const candidate of WordList) {
-            // Count any word that yields the same colors the the real answer yielded
-            // for all guesses.
+            // Count any word which, for all guesses, produces the same colors that the real answer produces
             if (actualScores.every((score) => score.isCompatibleAnswer(candidate))) {
                 matchCount++;
             }

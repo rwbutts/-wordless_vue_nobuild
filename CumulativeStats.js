@@ -38,14 +38,6 @@ class CumulativeStats {
     persist() {
         localStorage.setItem(STAT_STORAGE_NAME, JSON.stringify(this));
     }
-    // copy the array elements to target element-by-element to preserve reactivity
-    copyHistogramBins(destArray) {
-        if (destArray.length != this.histogramBins.length) {
-            throw new RangeError('CopyBins() source and dest are different sizes');
-        }
-        for (let i = 0; i < this.histogramBins.length; i++)
-            destArray[i] = this.histogramBins[i];
-    }
     static fromStorage(forceReset = false) {
         const statJSON = forceReset ? null : localStorage.getItem(STAT_STORAGE_NAME);
         if (statJSON !== null) {
