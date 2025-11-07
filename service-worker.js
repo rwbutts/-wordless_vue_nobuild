@@ -3,6 +3,7 @@ const FILES_TO_CACHE = [
     "/",
     "/index.html",
     "/types.js",
+    "/utils.js",
     "/components/Key.js",
     "/WordlessApiMock.js",
     "/components/Keyboard.js",
