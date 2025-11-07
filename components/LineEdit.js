@@ -20,7 +20,7 @@ Vue.component(
     {
         async onKey(e){
             const key = e.key;
-            this.$emit('key', e);
+            this.$emit('keypress', e);
 
             const L = this.editWord.length;
             let newEditWord = this.editWord;
@@ -65,7 +65,7 @@ Vue.component(
         },
     },
     template: `
-        <keyboard :class="{ 'enable-delete': (editWord.length >= 1), 'enable-enter': (editWord.length >= 5), }" @key="onKey" />
+        <keyboard :class="{ 'enable-delete': (editWord.length >= 1), 'enable-enter': (editWord.length >= 5), }" @keypress="onKey" />
     `,
 
 });

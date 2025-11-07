@@ -44,12 +44,12 @@ Vue.component(
              **/
             if ('none' !== window.getComputedStyle(this.$el).getPropertyValue('pointer-events')) {
                 this.keyDown = true;
-                this.$emit('key', {key: this.char });
+                this.$emit('keypress', {key: this.char });
                 setTimeout(() => (this.keyDown = false), 100);
             }
         },
-        handleKeyboardKey(e) {
-            let keyTranslated = e.key==='Backspace' ? 'DELETE': e.key.toUpperCase();
+        handleKeyboardKey(evt) {
+            let keyTranslated = evt.key==='Backspace' ? 'DELETE': evt.key.toUpperCase();
             if (keyTranslated  === this.char) {
                 this.clickHandler();
             }

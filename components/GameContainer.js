@@ -140,7 +140,7 @@ Vue.component(
                         <h3 class='status ' :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
                     </div>
                     <line-edit :editWord.sync="editWord" :answer="answer" @validate="onValidate" @validated="onValidated" 
-                            @message="statusMsg" @key="statusMsg('')" @reset="triggerWordLoad" />
+                            @message="statusMsg" @keypress="statusMsg('')" @reset="triggerWordLoad" />
                 </div>
                 <div class='footer dbg-red'>
                     <label class='hard-checkbox'>

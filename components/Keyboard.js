@@ -7,47 +7,47 @@ Vue.component(
     },
     methods: {
         onKey(e) {
-            this.$emit('key', e );
+            this.$emit('keypress', e );
         },
     },
     template: `
     <div class='keyboard'>
         <div class='kb-row'>
-            <key char='Q' @key="onKey" />
-            <key char='W' @key="onKey" />
-            <key char='E' @key="onKey" />
-            <key char='R' @key="onKey" />
-            <key char='T' @key="onKey" />
-            <key char='Y' @key="onKey" />
-            <key char='U' @key="onKey" />
-            <key char='I' @key="onKey" />
-            <key char='O' @key="onKey" />
-            <key char='P' @key="onKey" />
+            <key char='Q' @keypress="onKey" />
+            <key char='W' @keypress="onKey" />
+            <key char='E' @keypress="onKey" />
+            <key char='R' @keypress="onKey" />
+            <key char='T' @keypress="onKey" />
+            <key char='Y' @keypress="onKey" />
+            <key char='U' @keypress="onKey" />
+            <key char='I' @keypress="onKey" />
+            <key char='O' @keypress="onKey" />
+            <key char='P' @keypress="onKey" />
         </div>
         <div class='kb-row'>
-            <key char='A' @key="onKey" />
-            <key char='S' @key="onKey" />
-            <key char='D' @key="onKey" />
-            <key char='F' @key="onKey" />
-            <key char='G' @key="onKey" />
-            <key char='H' @key="onKey" />
-            <key char='J' @key="onKey" />
-            <key char='K' @key="onKey" />
-            <key char='L' @key="onKey" />
+            <key char='A' @keypress="onKey" />
+            <key char='S' @keypress="onKey" />
+            <key char='D' @keypress="onKey" />
+            <key char='F' @keypress="onKey" />
+            <key char='G' @keypress="onKey" />
+            <key char='H' @keypress="onKey" />
+            <key char='J' @keypress="onKey" />
+            <key char='K' @keypress="onKey" />
+            <key char='L' @keypress="onKey" />
         </div>
         <div class='kb-row'>
-            <key char='DELETE' :controlKey="true" label='DELETE'  @key="onKey"/>
-            <key char='Z' @key="onKey" />
-            <key char='X' @key="onKey" />
-            <key char='C' @key="onKey" />
-            <key char='V' @key="onKey" />
-            <key char='B' @key="onKey" />
-            <key char='N' @key="onKey" />
-            <key char='M' @key="onKey" />
-            <key char='ENTER' :controlKey="true" label='ENTER' @key="onKey" />
+            <key char='DELETE' :controlKey="true" label='DELETE'  @keypress="onKey"/>
+            <key char='Z' @keypress="onKey" />
+            <key char='X' @keypress="onKey" />
+            <key char='C' @keypress="onKey" />
+            <key char='V' @keypress="onKey" />
+            <key char='B' @keypress="onKey" />
+            <key char='N' @keypress="onKey" />
+            <key char='M' @keypress="onKey" />
+            <key char='ENTER' :controlKey="true" label='ENTER' @keypress="onKey" />
         </div>
         <div class='kb-row'>
-            <key char='RESET' :controlKey="true" label='PLAY AGAIN' @key="onKey"  />
+            <key char='RESET' :controlKey="true" label='PLAY AGAIN' @keypress="onKey"  />
         </div>
     </div>
     `,
