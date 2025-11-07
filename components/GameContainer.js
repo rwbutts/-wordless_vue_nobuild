@@ -57,6 +57,10 @@ Vue.component(
                 e.message = resp.message
                 e.valid = resp.valid;
             }
+
+            if(!e.valid) {
+                this.statusMsg(e.message, statusMessageClass.ERROR);
+            }
             e.resolve();
         },
         async onValidated(e) {
@@ -78,11 +82,10 @@ Vue.component(
             }
         },
         setKeyColorsFromGuess(guess) {
-            for (let i = 0; i < guess.length; i++) {
-                const gc = guess.charAt(i);
-                const color = (gc === this.answer.charAt(i)) ? MatchCodes.CORRECT : (this.answer.includes(gc) ? MatchCodes.ELSEWHERE : MatchCodes.MISS);
-                this.setKeyColor(gc, color);
-            }
+            let scores = GuessScorer.getWordScoreCodes(guess, this.answer);
+            scores.forEach( (code, idx) => {
+                this.setKeyColor( guess.charAt(idx), code );
+            });
         },
         setKeyColor(key, color) {
             if(key === KeyCodes.ALL) {
@@ -140,7 +143,7 @@ Vue.component(
                         <h3 class='status ' :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
                     </div>
                     <line-edit :editWord.sync="editWord" :answer="answer" @validate="onValidate" @validated="onValidated" 
-                            @message="statusMsg" @keypress="statusMsg('')" @reset="triggerWordLoad" />
+                            @keypress="statusMsg('')" @reset="triggerWordLoad" />
                 </div>
                 <div class='footer dbg-red'>
                     <label class='hard-checkbox'>

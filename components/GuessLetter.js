@@ -31,12 +31,12 @@ Vue.component(
     },
     template: `
         <div class='guess-letter' :class="{ [letterColor]: true }">
-        <div class='front'>
-            {{ letterProp }}
+            <div class='front'>
+                {{ letterProp }}
+            </div>
+            <div class='back '>
+                {{ letterProp }}
+            </div>
         </div>
-        <div class='back '>
-            {{ letterProp }}
-        </div>
-    </div>
     `,
 });

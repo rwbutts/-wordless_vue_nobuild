@@ -1,4 +1,4 @@
-const APP_VERSION="3.6.0-NB";
+const APP_VERSION="3.6.2-NB";
 const APP_CHEAT_CODE = "XYZZY";    // 5-letter uppercase nonsense trigger word or "" to disable feature
 
 const GamePlayStates = {

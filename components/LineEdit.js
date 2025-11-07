@@ -29,18 +29,16 @@ Vue.component(
                 case key === KeyCodes.ENTER && L >= 5:
                     {
                         let validateEvt = {word: this.editWord, valid: undefined, message: undefined, resolve: undefined,   };
-                        let promise = new Promise( (resolve, reject) => {
-                                validateEvt.resolve = resolve;
-                                this.$emit('validate', validateEvt);
-                            })
+                        let promise = new Promise((resolve, reject) => {
+                            validateEvt.resolve = resolve;
+                            this.$emit("validate", validateEvt);
+                        });
                         await promise;
-                        if(validateEvt.valid) {
-                                this.$emit('validated', { word: this.editWord });
-                                newEditWord = '';
-                        } else {
-                            newEditWord='';
-                            this.$emit('message', validateEvt.message, statusMessageClass.ERROR );
+                        
+                        if (validateEvt.valid) {
+                            this.$emit("validated", { word: this.editWord });
                         }
+                        newEditWord = "";
                     }
                     break;
                 case key === KeyCodes.DELETE && L > 0:
@@ -59,9 +57,6 @@ Vue.component(
                 this.$emit('update:editWord', newEditWord);
             }
 
-        },
-        statusMsg( msg, msgClass=statusMessageClass.DEFAULT ) {
-            this.$emit('message', msg, msgClass );
         },
     },
     template: `
