@@ -28,13 +28,13 @@ function extractFunctionText(fn) {
     return s;
 }
 
-function assert(conditionFn, message) {
-  const isFunction = typeof conditionFn === 'function';
-  const value = isFunction ? conditionFn() : !!conditionFn;
-  const source = isFunction ? extractFunctionText(conditionFn) : String(conditionFn);
+function assert(condition, message) {
+  const isFunction = typeof condition === 'function';
+  const value = isFunction ? condition() : !!condition;
+  const source = isFunction ? extractFunctionText(condition) : `VALUE(${String(condition)})`;
 
   if (!value) {
-    throw new Error((`assert(${source})` || 'asserted condition') + ' is FALSE' + (message ? ': ' + message : ''));
+    throw new Error((`assert(${source})` || 'asserted condition') + ' FAILS' + (message ? ': ' + message : ''));
   }
 }
 

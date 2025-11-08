@@ -34,7 +34,7 @@ Vue.component(
                             this.$emit("validate", validateEvt);
                         });
                         await promise;
-                        
+
                         if (validateEvt.valid) {
                             this.$emit("validated", { word: this.editWord });
                         }
@@ -56,7 +56,6 @@ Vue.component(
             {
                 this.$emit('update:editWord', newEditWord);
             }
-
         },
     },
     template: `

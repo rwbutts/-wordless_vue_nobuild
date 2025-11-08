@@ -4,8 +4,10 @@ const FILES_TO_CACHE = [
     "/index.html",
     "/types.js",
     "/utils.js",
-    "/components/Key.js",
+    "/app.js",
+    "/style.css",
     "/WordlessApiMock.js",
+    "/components/Key.js",
     "/components/Keyboard.js",
     "/components/GuessLetter.js",
     "/components/GuessWord.js",
@@ -16,7 +18,6 @@ const FILES_TO_CACHE = [
     "/components/GameContainer.js",
     "/lib/vue.js",
     "/fonts/Caveat-Medium.ttf",
-    "/app.js",
 ];
 
 self.addEventListener('install', event => {
