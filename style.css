@@ -52,8 +52,8 @@
 @media (min-width: 1400px) {}
 
 @font-face {
-  font-family: 'Caveat';
-  src: url('/fonts/Caveat-Medium.ttf') format('truetype');
+  font-family: "Caveat";
+  src: url("fonts/Caveat-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
@@ -272,7 +272,7 @@ and the position of the cursor in the edited line.
     transition: all 0s 0s;
 }
 
-/*   if expert mode, disable the key if it's a miss.
+/*   If expert mode, disable the key if it's a miss.
      Duplicate .miss to increase priority of selector 
 */
 .enable-hard-mode .key-button.miss.miss {
