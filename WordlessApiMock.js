@@ -4267,6 +4267,7 @@ const WordList = [
     "troth",
     "trots",
     "trout",
+    "trove",
     "troys",
     "truce",
     "truck",

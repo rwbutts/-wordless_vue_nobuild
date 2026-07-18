@@ -18,7 +18,7 @@ Vue.component(
             apiVersion: '',
             statusMessage: LOADING_MESSAGE,
             statusMessageClass: statusMessageClass.DEFAULT,
-            gameMode: GameModes.EASY,
+            gameMode: GameModes.HARD,
         };
     },
     computed: {
