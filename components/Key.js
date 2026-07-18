@@ -1,7 +1,5 @@
 "use strict";
 
-const keyRefMap = {};
-
 Vue.component(
     'key', {
     data() {
@@ -55,16 +53,18 @@ Vue.component(
             }
         },
         
-        setKeyColor(color) {
-            // If current color is Green, don't honor a change back to Yellow
-            if( !(this.color === MatchCodes.CORRECT && color === MatchCodes.ELSEWHERE)) {
-                this.color = color;
+        setKeyColorEventHandler(key, color) {
+            if( key === KeyCodes.ALL || key.toUpperCase() === this.char.toUpperCase() ) {
+                // If current color is Green, don't honor a change back to Yellow
+                if( !(this.color === MatchCodes.CORRECT && color === MatchCodes.ELSEWHERE)) {
+                    this.color = color;
+                }
             }
         }
     },
 
     mounted() {
-        keyRefMap[this.char] = this;
+        this.$root.$on('set-key-color', this.setKeyColorEventHandler);
         window.addEventListener('keydown', this.handleKeyboardKey.bind(this));
     },
     template: `

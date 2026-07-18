@@ -88,11 +88,7 @@ Vue.component(
             });
         },
         setKeyColor(key, color) {
-            if(key === KeyCodes.ALL) {
-                Object.keys(keyRefMap).forEach( k => keyRefMap[k].setKeyColor(color));
-            } else {
-                keyRefMap[key].setKeyColor( color );
-            }
+            this.$root.$emit('set-key-color', key, color);
         },
         resetState() {
             this.guesses = [];
