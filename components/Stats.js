@@ -63,7 +63,7 @@ Vue.component(
         <statbar class='bar-guessed-pct' :percent="winPct" :caption="cumStats.gamesWon.toString()" />
 
         <h2>Guesses Required</h2>
-        <statbar class='bar-guesses-required' v-for="i in 6" :percent="histogramPct(i)" :caption="i.toString()"
+        <statbar class='bar-guesses-required' v-for="i in 6" :percent="histogramPct(i)" :caption='i.toString()'
             :key="i" />
 
         <h2 class='subtitle'>Words Missed</h2>
