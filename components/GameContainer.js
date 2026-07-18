@@ -124,7 +124,9 @@ Vue.component(
     },
     template: `
         <div id="game-container" class='disable-tap-zoom dbg-red' 
-            :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': gameMode !== 'easy', }">
+            :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': gameMode !== 'easy', }"
+        >
+            <div class="modal-backdrop"></div>
             <stats :isActive.sync='statModalIsActive' ref='stats' />
             <div id="game-content">
                 <div class="title">Wordless</div>
