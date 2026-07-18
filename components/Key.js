@@ -1,7 +1,7 @@
 "use strict";
 
 Vue.component(
-    'key', {
+    "key", {
     data() {
         return {
             keyDown: false,
@@ -29,7 +29,7 @@ Vue.component(
     computed:
     {
         keyNameClass() {
-            return 'key-'+this.char.toLowerCase();
+            return "key-"+this.char.toLowerCase();
         },
     },
 
@@ -40,14 +40,14 @@ Vue.component(
              * check if disabled in css so keypress-
              * calls are ignored (native click will be disabled by css setting .)
              **/
-            if ('none' !== window.getComputedStyle(this.$el).getPropertyValue('pointer-events')) {
+            if ("none" !== window.getComputedStyle(this.$el).getPropertyValue("pointer-events")) {
                 this.keyDown = true;
-                this.$emit('keypress', {key: this.char });
+                this.$emit("keypress", {key: this.char });
                 setTimeout(() => (this.keyDown = false), 100);
             }
         },
         handleKeyboardKey(evt) {
-            let keyTranslated = evt.key==='Backspace' ? 'DELETE': evt.key.toUpperCase();
+            let keyTranslated = evt.key==="Backspace" ? "DELETE": evt.key.toUpperCase();
             if (keyTranslated  === this.char) {
                 this.clickHandler();
             }
@@ -55,7 +55,7 @@ Vue.component(
         
         setKeyColorEventHandler(key, color) {
             if( key === KeyCodes.ALL || key.toUpperCase() === this.char.toUpperCase() ) {
-                // If current color is Green, don't honor a change back to Yellow
+                // If current color is Green, don"t honor a change back to Yellow
                 if( !(this.color === MatchCodes.CORRECT && color === MatchCodes.ELSEWHERE)) {
                     this.color = color;
                 }
@@ -64,11 +64,11 @@ Vue.component(
     },
 
     mounted() {
-        this.$root.$on('set-key-color', this.setKeyColorEventHandler);
-        window.addEventListener('keydown', this.handleKeyboardKey.bind(this));
+        this.$root.$on("set-key-color", this.setKeyColorEventHandler);
+        window.addEventListener("keydown", this.handleKeyboardKey.bind(this));
     },
     template: `
-        <BUTTON href='#' class='key-button' @click="clickHandler"
+        <BUTTON href="#" class="key-button" @click="clickHandler"
         :class="{ [color]: true, [keyNameClass]: true, [controlKey?'nonalpha':'alpha']: true, 'key-down': keyDown,  }">
         {{ label ? label : char }}
         </BUTTON>

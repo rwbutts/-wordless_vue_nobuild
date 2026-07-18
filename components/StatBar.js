@@ -1,7 +1,7 @@
 "use strict";
 
 Vue.component(
-    'statbar', {
+    "statbar", {
 
      data  () {
           return { 
@@ -16,7 +16,7 @@ Vue.component(
           caption : {
                type : String,
                required : false,
-               default : '',
+               default : "",
           },
      },
 
@@ -26,10 +26,10 @@ Vue.component(
           }
      },
      template: `
-     <div class='box-bar'>
-        <div class='box-caption1'>{{ caption }}</div>
-        <div class='box-caption2'>{{ (isNaN(percent) ? '--' : percent) }}&percnt; </div>
-        <div v-for="i in 10"  class='box' :class='{filled : i <= barCount}' :key='i'></div>
+     <div class="box-bar">
+        <div class="box-caption1">{{ caption }}</div>
+        <div class="box-caption2">{{ (isNaN(percent) ? "--" : percent) }}&percnt; </div>
+        <div v-for="i in 10"  class="box" :class="{filled : i <= barCount}" :key="i"></div>
         </div>
      `,
 });

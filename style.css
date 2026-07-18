@@ -528,13 +528,7 @@ and the position of the cursor in the edited line.
     z-index: 10;
     transition: transform 0.25s linear 0s;
 }
-/*
-@starting-style {
-  .stat-box {
-    transform: scale(0, 0);
-  }
-}
-*/
+
 .close-button {
     display: flex;
     justify-content: center;

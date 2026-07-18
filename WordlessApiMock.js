@@ -52,17 +52,17 @@ class WordlessApi {
             errMsg = `${greenViolationCount} Green`;
         }
         if(yellowViolationCount > 0) {
-            errMsg += `${errMsg!==''?', ':''}${yellowViolationCount} Yellow`;
+            errMsg += `${errMsg!=="" ?  ", " : ""}${yellowViolationCount} Yellow`;
         }
         if(greyViolationCount > 0) {
-            errMsg += `${errMsg!==''?', ':''}${greyViolationCount} Grey`;
+            errMsg += `${errMsg!=="" ? ", " : ""}${greyViolationCount} Grey`;
         }
 
-        if(errMsg==='') {
-            return new CheckWordApiResponse(true, 'OK', WORDLESS_MOCK_API_VERSION);
+        if(errMsg==="") {
+            return new CheckWordApiResponse(true, "OK", WORDLESS_MOCK_API_VERSION);
         }
 
-        errMsg += (greenViolationCount+yellowViolationCount+greyViolationCount)===1 ?' clue':' clues';
+        errMsg += (greenViolationCount+yellowViolationCount+greyViolationCount)===1 ? " clue" : " clues";
 
         return new CheckWordApiResponse(false, `${newGuess} violates: ${errMsg}`, WORDLESS_MOCK_API_VERSION);
     }

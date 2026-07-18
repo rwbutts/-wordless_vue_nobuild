@@ -1,22 +1,22 @@
 "use strict";
 
 Vue.component(
-    'guess-letter', {
+    "guess-letter", {
 
     data() {
         return {
         };
     },
     props: {
-        'letterProp': {
+        "letterProp": {
             type: String,
             required: true,
         },
-        'answerProp': {
+        "answerProp": {
             type: String,
             required: true,
         },
-        'columnProp': {
+        "columnProp": {
             type: Number,
             required: true,
         },
@@ -30,11 +30,11 @@ Vue.component(
         }
     },
     template: `
-        <div class='guess-letter' :class="{ [letterColor]: true }">
-            <div class='front'>
+        <div class="guess-letter" :class="[letterColor]">
+            <div class="front">
                 {{ letterProp }}
             </div>
-            <div class='back '>
+            <div class="back">
                 {{ letterProp }}
             </div>
         </div>

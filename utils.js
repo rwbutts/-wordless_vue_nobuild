@@ -29,15 +29,15 @@ function extractFunctionText(fn) {
 }
 
 function assert(condition, message) {
-  const isFunction = typeof condition === 'function';
+  const isFunction = typeof condition === "function";
   const value = isFunction ? condition() : !!condition;
   const source = isFunction ? extractFunctionText(condition) : `VALUE(${String(condition)})`;
 
   if (!value) {
-    throw new Error((`assert(${source})` || 'asserted condition') + ' FAILS' + (message ? ': ' + message : ''));
+    throw new Error((`assert(${source})` || "asserted condition") + " FAILS" + (message ? ": " + message : ""));
   }
 }
 
 function isPWA() {
-  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
 }

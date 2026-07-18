@@ -35,9 +35,9 @@ const KeyCodes = {
 }
 
 const GameModes = {
-    EASY: 'easy',
-    HARD: 'hard',
-    EXTRA_HARD: 'extra-hard',
+    EASY: "easy",
+    HARD: "hard",
+    EXTRA_HARD: "extra-hard",
 }
 
 class HealthCheckApiResponse {

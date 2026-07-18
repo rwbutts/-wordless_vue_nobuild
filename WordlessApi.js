@@ -12,9 +12,9 @@ export class WordlessAPI {
     async getWordAsync(daysAgo = -1) {
         try {
             const json = await this._fetchAndGetJson(`${API_SITE}${GETWORD_URI}/${daysAgo}`);
-            new GetWordApiResponse(json.word.toUpperCase(), '', json.api_version);
+            new GetWordApiResponse(json.word.toUpperCase(), "", json.api_version);
         } catch (err) {
-            new GetWordApiResponse(null, err.message, 'n/a', false);
+            new GetWordApiResponse(null, err.message, "n/a", false);
         }
     }
 
@@ -22,9 +22,9 @@ export class WordlessAPI {
         const WordLC = Word.toLowerCase();
         try {
             const json = await this._fetchAndGetJson(`${API_SITE}${CHECKWORD_URI}/${WordLC}`);
-            return new CheckWordApiResponse(json.exists, json.exists ? 'Word is valid' : 'Word is not valid', json.api_version);
+            return new CheckWordApiResponse(json.exists, json.exists ? "Word is valid" : "Word is not valid", json.api_version);
         } catch (err) {
-            return new CheckWordApiResponse(null, err.message, 'n/a', false);
+            return new CheckWordApiResponse(null, err.message, "n/a", false);
         }
     }
 
@@ -37,7 +37,7 @@ export class WordlessAPI {
             const json = await this._fetchAndGetJson(`${API_SITE}${GETMATCHCOUNT_URI}`, postData);
             return new GetMatchCountApiResponse(json.count, `${json.count} matches`, json.api_version);
         } catch (err) {
-            return new GetMatchCountApiResponse(null, err.message, 'n/a', false);
+            return new GetMatchCountApiResponse(null, err.message, "n/a", false);
         }
     }
 
@@ -46,7 +46,7 @@ export class WordlessAPI {
             const json = await this._fetchAndGetJson(`${API_SITE}${HEALTHCHECK_URI}`);
             return new HealthCheckApiResponse(true, "Health check OK", json.api_version);
         } catch (err) {
-            return new HealthCheckApiResponse(false, err.message, 'n/a');
+            return new HealthCheckApiResponse(false, err.message, "n/a");
         }
     }
 
@@ -54,18 +54,18 @@ export class WordlessAPI {
         let RequestParams;
         if (PostData === null) {
             RequestParams = {
-                method: 'GET',
+                method: "GET",
                 headers: {
-                    'Accept': '*/*',
+                    "Accept": "*/*",
                 },
             };
         } else {
             RequestParams = {
-                method: 'POST',
-                mode: 'cors',
+                method: "POST",
+                mode: "cors",
                 headers: {
-                    'Accept': '*/*',
-                    'Content-Type': 'application/json',
+                    "Accept": "*/*",
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(PostData),
             };
@@ -77,7 +77,7 @@ export class WordlessAPI {
         }
 
         const json = await response.json();
-        json['api_version'] = response.headers.get(HTTP_VER_HEADER) ?? 'n/a';
+        json["api_version"] = response.headers.get(HTTP_VER_HEADER) ?? "n/a";
         return Promise.resolve(json);
     }
 }

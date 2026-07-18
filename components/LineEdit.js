@@ -1,7 +1,7 @@
 "use strict";
 
 Vue.component(
-    'line-edit', {
+    "line-edit", {
 
     data() {
         return {
@@ -20,7 +20,7 @@ Vue.component(
     {
         async onKey(e){
             const key = e.key;
-            this.$emit('keypress', e);
+            this.$emit("keypress", e);
 
             const L = this.editWord.length;
             let newEditWord = this.editWord;
@@ -44,17 +44,17 @@ Vue.component(
                 case key === KeyCodes.DELETE && L > 0:
                     newEditWord = this.editWord.substring(0, L - 1);
                     break;
-                case key.length === 1 && key >= 'A' && key <= 'Z' && L < 5:
+                case key.length === 1 && key >= "A" && key <= "Z" && L < 5:
                     newEditWord += key;
                     break;
-                case key === 'RESET':
-                    this.$emit('reset');
+                case key === "RESET":
+                    this.$emit("reset");
                     break;
             }
 
             if(newEditWord !== this.editWord)
             {
-                this.$emit('update:editWord', newEditWord);
+                this.$emit("update:editWord", newEditWord);
             }
         },
     },

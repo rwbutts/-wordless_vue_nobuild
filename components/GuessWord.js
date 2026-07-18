@@ -2,7 +2,7 @@
 "use strict";
 
  Vue.component(
-    'guess-word', {
+    "guess-word", {
 
     data() {
         return {
@@ -40,8 +40,8 @@
         },
     },
     template: `
-    <div class='guess-row row' :class="{ focus: haveFocus, reveal: reveal, 'latest-reveal': latestReveal, }">
-        <div v-for="col in 5" :key='col' class='letter-container'
+    <div class="guess-row row" :class="{ focus: haveFocus, reveal: reveal, 'latest-reveal': latestReveal, }">
+        <div v-for="col in 5" :key="col" class="letter-container"
             :class="{ focus: haveFocus && col - 1 === wordProp.length }">
             <guess-letter :letterProp="wordProp.charAt(col - 1)" :columnProp="col - 1" :answerProp="answerProp" />
         </div>

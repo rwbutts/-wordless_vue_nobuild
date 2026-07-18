@@ -6,16 +6,16 @@ const LOADING_MESSAGE="Loading ...";
 const LOADED_MESSAGE="Guess the 5-letter word in 6 tries. Good luck!";
 
 Vue.component(
-    'game-container', {
+    "game-container", {
     data() {
         return {
             guesses: [],
-            editWord: '',
+            editWord: "",
             gamePlayState: GamePlayStates.LOADING_WORD,
-            answer: '',
+            answer: "",
             statModalIsActive: false,
             appVersion: APP_VERSION,
-            apiVersion: '',
+            apiVersion: "",
             statusMessage: LOADING_MESSAGE,
             statusMessageClass: statusMessageClass.DEFAULT,
             gameMode: GameModes.HARD,
@@ -40,7 +40,7 @@ Vue.component(
             } else if (row - 1 < this.nGuesses) {
                 return this.guesses[row - 1];
             } else {
-                return '';
+                return "";
             }
         },
         async onValidate(e) {
@@ -74,7 +74,7 @@ Vue.component(
                     break;
                 case this.guesses.length >= 6:
                     this.gamePlayState = GamePlayStates.LOST;
-                    this.statusMsg(LOSE_MESSAGE.replace('#ARG0#', this.answer), statusMessageClass.LOSE);
+                    this.statusMsg(LOSE_MESSAGE.replace("#ARG0#", this.answer), statusMessageClass.LOSE);
                     this.gameOverShowStats({ won: false, guesses: this.nGuesses });
                     break;
                 default:
@@ -88,7 +88,7 @@ Vue.component(
             });
         },
         setKeyColor(key, color) {
-            this.$root.$emit('set-key-color', key, color);
+            this.$root.$emit("set-key-color", key, color);
         },
         resetState() {
             this.guesses = [];
@@ -102,7 +102,7 @@ Vue.component(
             if (response.success) {
                 this.answer = response.word?.toUpperCase();
                 this.resetState();
-                this.apiVersion = response.api_version ?? 'n/a';
+                this.apiVersion = response.api_version ?? "n/a";
                 this.statusMsg(LOADED_MESSAGE, statusMessageClass.WELCOME);
             }
             else {
@@ -114,58 +114,58 @@ Vue.component(
             if (!resp.success) {
                 this.statusMsg(`Error: ${resp.message}`, statusMessageClass.ERROR);
             } else {
-                this.statusMsg(REMAINING_WORD_MESSAGE.replace('#ARG0#', resp.count));
+                this.statusMsg(REMAINING_WORD_MESSAGE.replace("#ARG0#", resp.count));
             }
         },
         gameOverShowStats(e) {
-            this.$refs['stats'].recordResultAndShowModal(e);
+            this.$refs["stats"].recordResultAndShowModal(e);
         },
 
     },
     template: `
-        <div id="game-container" class='disable-tap-zoom dbg-red' 
+        <div id="game-container" class="disable-tap-zoom dbg-red" 
             :class="{ 'modal-active': statModalIsActive, [gamePlayState]: true, 'enable-hard-mode': gameMode !== 'easy', }"
         >
             <div class="modal-backdrop"></div>
-            <stats :isActive.sync='statModalIsActive' ref='stats' />
+            <stats :isActive.sync="statModalIsActive" ref="stats" />
             <div id="game-content">
                 <div class="title">Wordless</div>
                 <div class="subtitle">Bill's Word Game in Vue</div>
                 <div id="game-ui" class="dbg-blue">
                     <div>
                         <guess-word v-for="row in 6" :key="row" :wordProp="rowWord(row)" :answerProp="answer"
-                            :myRowProp="row - 1" :activeRowProp='nGuesses'>
+                            :myRowProp="row - 1" :activeRowProp="nGuesses">
                         </guess-word>
                     </div>
-                    <div class='status-area'>
-                        <h3 class='status ' :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
+                    <div class="status-area">
+                        <h3 class="status" :class="{[statusMessageClass]: statusMessageClass!=='' }"> {{ statusMessage }}</h3>
                     </div>
                     <line-edit :editWord.sync="editWord" :answer="answer" @validate="onValidate" @validated="onValidated" 
                             @keypress="statusMsg('')" @reset="triggerWordLoad" />
                 </div>
-                <div class='footer dbg-red'>
-                    <label class='hard-checkbox'>
+                <div class="footer dbg-red">
+                    <label class="hard-checkbox">
                         <input type="radio" value="easy" v-model="gameMode" /> Easy
                     </label>
-                    <label class='hard-checkbox'>
+                    <label class="hard-checkbox">
                         <input type="radio" value="hard" v-model="gameMode" /> Hard
                     </label>
-                    <label class='hard-checkbox x-hard-mode-feature'>
+                    <label class="hard-checkbox x-hard-mode-feature">
                         <input type="radio" value="extra-hard" v-model="gameMode" /> Extra Hard
                     </label>
                     <br />
                     <b>Hard:</b> grey letters cannot be reused
-                    <div class='x-hard-mode-feature'>
+                    <div class="x-hard-mode-feature">
                         <br />
                         <b>Extra Hard:</b> guess must also agree with Green and Yellow clues
                     </div>
                     <hr>
                     <div class="color-code-guide">
-                        <div class='correct'>Green: correct</div>
-                        <div class='elsewhere'>Yellow: another position</div>
-                        <div class='miss'>Grey: not in word</div>
+                        <div class="correct">Green: correct</div>
+                        <div class="elsewhere">Yellow: another position</div>
+                        <div class="miss">Grey: not in word</div>
                     </div>
-                    <span class='version-info'>
+                    <span class="version-info">
                         app_ver: {{ appVersion }}
                         <span v-if="apiVersion !== ''">, api_ver: {{ apiVersion }} </span>
                     </span>
