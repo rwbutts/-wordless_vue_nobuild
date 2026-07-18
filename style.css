@@ -510,8 +510,6 @@ and the position of the cursor in the edited line.
 *                   statbox                       *
 **************************************************/
 .stat-box.show-dialog {
-    display: block;
-    visibility: visible;
     transform: scale(1, 1);
     transition: transform 0.25s linear 4s;
 }
@@ -527,17 +525,23 @@ and the position of the cursor in the edited line.
     color: var(--color-stats-text);
     padding: 5px 15px 5px 0;
     transform: scale(0, 0);
-    visibility: hidden;
     z-index: 10;
+    transition: transform 0.25s linear 0s;
 }
-
+/*
+@starting-style {
+  .stat-box {
+    transform: scale(0, 0);
+  }
+}
+*/
 .close-button {
     display: flex;
     justify-content: center;
     margin: 15px 0 5px 0;
 }
 
-.close-button button:hover {
+.close-button button:hover { 
     cursor: pointer;
     border-color: #444;
 }
@@ -563,12 +567,13 @@ h2 {
     background-color:  #000;
     opacity: 0.0;
     display: none;
-    transition: opacity 0.25s  4s, display allow-discrete;
     z-index: 5;
+    transition: opacity 0.25s  linear 0s, display 0.25s linear 0s allow-discrete;
 }
 .modal-active  .modal-backdrop {
     display: block;
     opacity: 0.4;
+    transition: opacity 0.25s linear  4.0s, display 0.25s linear  4.0s allow-discrete;
 }
 @starting-style {
   .modal-active  .modal-backdrop {
